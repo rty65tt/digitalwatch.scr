@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1682965673 source:f:\dev\projects\scrsv_watch\src\main.c
+	<Windows.h>
+	<gl\GL.h>
+	<gl\GLU.h>
+	<ScrnSave.h>
+	<CommCtrl.h>
+	<math.h>
+
+1683070661 source:f:\dev\projects\scrsv_watch\src\resources.rc
+	<windows.h>
+	"resource.h"
+
+1683070411 f:\dev\projects\scrsv_watch\src\resource.h
+
+1682987943 source:f:\dev\projects\scrsv_watch\src\main.cpp
+	<Windows.h>
+	<gl\GL.h>
+	<gl\GLU.h>
+	<ScrnSave.h>
+	<CommCtrl.h>
+	<math.h>
+
+1683053703 source:f:\dev\projects\scrsv_watch\src\main_scr.cpp
+	<Windows.h>
+	<gl\GL.h>
+	<gl\GLU.h>
+	<ScrnSave.h>
+	<CommCtrl.h>
+	<math.h>
+
+1683071303 source:f:\dev\projects\scrsv_watch\src\main_win.cpp
+	<windows.h>
+	<Windowsx.h>
+	<gl/gl.h>
+	<math.h>
+	<scrnsave.h>
+	<CommCtrl.h>
+
