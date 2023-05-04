@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Screen Saver Watch" />
+		<Option title="bloodigitalwatch" />
 		<Option platforms="Windows;" />
 		<Option execution_dir="F:/dev/projects/scrsvr_watch/src/" />
 		<Option pch_mode="2" />
@@ -75,9 +75,13 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-Wl,-rpath" />
 		</Compiler>
+		<ResourceCompiler>
+			<Add option="--def=main_win.def" />
+		</ResourceCompiler>
 		<Linker>
-			<Add library="scrnsavw" />
+			<Add option="-static-libgcc -static-libstdc++" />
 			<Add library="scrnsave" />
 			<Add library="comdlg32" />
 			<Add library="comctl32" />
@@ -86,6 +90,7 @@
 			<Add library="gdiplus" />
 			<Add library="gdi32" />
 		</Linker>
+		<Unit filename="SimpleIni.h" />
 		<Unit filename="icon.ico" />
 		<Unit filename="main.h">
 			<Option target="Debug" />
@@ -108,7 +113,23 @@
 		<Unit filename="resources.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="version.h" />
 		<Extensions>
+			<AutoVersioning>
+				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
+				<Settings autoincrement="1" date_declarations="1" use_define="0" update_manifest="0" do_auto_increment="0" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+				<Code header_guard="VERSION_H" namespace="AutoVersion" prefix="" />
+			</AutoVersioning>
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project output_language="" />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>

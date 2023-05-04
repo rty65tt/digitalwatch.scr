@@ -1,38 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
-	<ActiveTarget name="ReleaseDialog" />
-	<File name="main_win.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+	<ActiveTarget name="Release" />
+	<File name="main_win.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="11139" topLine="223" />
+			<Cursor1 position="205" topLine="0" />
 		</Cursor>
 		<Folding>
-			<Collapse line="58" />
-			<Collapse line="73" />
-			<Collapse line="83" />
-			<Collapse line="90" />
-			<Collapse line="96" />
-			<Collapse line="106" />
-			<Collapse line="137" />
-			<Collapse line="156" />
-			<Collapse line="337" />
-			<Collapse line="473" />
-			<Collapse line="504" />
+			<Collapse line="75" />
+			<Collapse line="154" />
+			<Collapse line="166" />
 		</Folding>
-	</File>
-	<File name="resources.rc" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2189" topLine="95" />
-		</Cursor>
 	</File>
 	<File name="main_scr.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="195" topLine="368" />
+			<Cursor1 position="195" topLine="378" />
+		</Cursor>
+	</File>
+	<File name="SimpleIni.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="22640" topLine="528" />
 		</Cursor>
 	</File>
 	<File name="main_win.def" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="248" topLine="0" />
+			<Cursor1 position="76" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="main.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -40,9 +32,19 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="resource.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
+	<File name="resources.rc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="7" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="452" topLine="0" />
+			<Cursor1 position="1395" topLine="45" />
+		</Cursor>
+	</File>
+	<File name="resource.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="208" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="version.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="460" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

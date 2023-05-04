@@ -3,13 +3,16 @@
 #include <gl/gl.h>
 #include <math.h>
 #include <scrnsave.h>
+
 #include <CommCtrl.h>
+#include "CommDlg.h"
 
 //#include <iostream>
 //using namespace std;
+//#include "SimpleIni.h"
+#include "resource.h"
 
-
-#define PI       3.14159265358979323846   // pi
+//#define PI       3.14159265358979323846   // pi
 #define TIMER   1
 
 extern HINSTANCE    hMainInstance;      // screen saver instance handle
@@ -22,7 +25,8 @@ float koef;
 static int mouse_x_init =0;
 
 static SYSTEMTIME st;
-static bool g_start_flag = TRUE;
+static int g_start_flag = 400;
+static int p_second;
 
 static char digit_matrix[451] = "\
 111111000110001100011000110001100011000111111\
@@ -44,8 +48,6 @@ static char dots_matrix[136] = "\
 static char m_deys_matrix[281] = "1111100110011001100110011111001100010001000100010001000111110001000111111000100011111111000100010111000100011111100110011001111100010001000111111000100011110001000111111111100010001111100110011111111110010001001001000100010011111001100111111001100111111111100110011111000100011111";
 static char w_deys_matrix[246] = "11101111010100111010010101001110111111010110101011010111101010110101011110111101001011100101010010111001011101111000101100011110001001110100101011110100101110010001001000100101110111101001010100101010010101001011101111000100100011110001011110111";
 
-
-
 static float space;
 static float step;
 static int cx;
@@ -60,13 +62,13 @@ void drawCircleFill(int cnt)
     float x, y;
     float a = M_PI * 2.0 / cnt;
     glBegin(GL_TRIANGLE_FAN);
-        glVertex2f(0, 0);
-        for (int i = 0; i <= cnt; i++)
-        {
-            x = sin(a * i);
-            y = cos(a * i);
-            glVertex2f(x, y);
-        }
+    glVertex2f(0, 0);
+    for (int i = 0; i <= cnt; i++)
+    {
+        x = sin(a * i);
+        y = cos(a * i);
+        glVertex2f(x, y);
+    }
     glEnd();
 }
 
@@ -74,32 +76,35 @@ void drawSquareFill()
 {
     float x=1;
     glBegin(GL_TRIANGLE_FAN);
-        glVertex2f(-x, x);
-        glVertex2f(x, x);
-        glVertex2f(x, -x);
-        glVertex2f(-x, -x);
+    glVertex2f(-x, x);
+    glVertex2f(x, x);
+    glVertex2f(x, -x);
+    glVertex2f(-x, -x);
     glEnd();
 }
 
-typedef struct {
+typedef struct
+{
     float x,y;
     float r;
 } TBall;
 
 TBall ball;
 
-void TBall_Init(TBall *obj, float x1, float y1, float r1) {
-    obj->x = x1+r1;
-    obj->y = y1+r1;
+void TBall_Init(TBall *obj, float x1, float y1, float r1)
+{
+    obj->x = x1;
+    obj->y = y1;
     obj->r = r1;
 }
 
-void TBall_Show(TBall obj) {
+void TBall_Draw(TBall obj)
+{
     glPushMatrix();
-        glTranslatef(obj.x, obj.y, 0);
-        glScalef(obj.r, obj.r, 1);
-        //drawSquareFill();
-        drawCircleFill(12);
+    glTranslatef(obj.x, obj.y, 0);
+    glScalef(obj.r, obj.r, 1);
+    //drawSquareFill();
+    drawCircleFill(12);
     glPopMatrix();
 }
 
@@ -114,17 +119,19 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
     while (1)
     {
         counter = 0;
-        do {
+        do
+        {
             if (p_bm[counter] != 48)
             {
                 float ix = (x + bm_x) * space;
                 float iy = (y + bm_y) * -space;
                 TBall_Init(&ball, ix, iy, step);
-                TBall_Show(ball);
+                TBall_Draw(ball);
             }
             bm_x += 1;
             ++counter;
-        } while (counter < cel);
+        }
+        while (counter < cel);
         if (!--row)
             break;
         bm_y += 1;
@@ -135,18 +142,21 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
 }
 
 
-void Screensaver_Init(HDC hDC) {
+void Screensaver_Init(HDC hDC)
+{
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glDisable(GL_DEPTH_TEST);
 
 
-    for (float iy=-cy; iy < cy; iy++) {
-        for (float ix=-cx; ix < cx; ix++) {
+    for (float iy=-cy; iy < cy; iy++)
+    {
+        for (float ix=-cx; ix < cx; ix++)
+        {
             float grey = rand()%10  * 0.01f ;
-            glColor3f(grey, grey, grey);
+            glColor3f(0.1f + grey, grey, 0.0f);
             TBall_Init(&ball, (float)ix*space, (float)iy*space, step);
-            TBall_Show(ball);
+            TBall_Draw(ball);
         }
     }
     wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
@@ -250,7 +260,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
     wcex.lpszMenuName = NULL;
-    wcex.lpszClassName = "Screen Watch";
+    wcex.lpszClassName = "WindowsScreenSaverClass";
     wcex.hIconSm = LoadIcon(NULL, IDI_APPLICATION);;
 
     if (!RegisterClassEx(&wcex))
@@ -293,7 +303,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     /* create main window */
     hwnd = CreateWindowEx(0,
-                          "Screen Watch",
+                          "WindowsScreenSaverClass",
                           "Screen Watch OpenGL",
                           //WS_OVERLAPPEDWINDOW,
                           WS_POPUP | WS_VISIBLE,
@@ -321,13 +331,14 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     koef = (float)width / height;
 
-    step = 1.0f / 64.0f ;
+    step = 1.0f / 92.0f ;
     space = step * 2.5f;  // Space
     cy = 1 / space;
     cx = cy * koef;
 
     glLoadIdentity();
     float xy_scale = 0.9f;
+    //float xy_scale = 1.2f;
     glOrtho(-xy_scale,xy_scale, -xy_scale,xy_scale, -1, 1);
 
     glScalef( 1 / koef, 1, 1);
@@ -354,67 +365,82 @@ int WINAPI WinMain(HINSTANCE hInstance,
         {
             /* OpenGL animation code goes here */
 
-            float rc = rand()%30 * 0.01;
-            float gc = rand()%20 * 0.01;
-            glColor3f(rc, gc, 0.0f);
-            float ix = rand_range(-cx, cx) * space;
-            float iy = rand_range(-cy, cy) * space;
-            TBall_Init(&ball, (float)ix, (float)iy, step);
-            TBall_Show(ball);
-            Sleep(10);
-
             GetLocalTime(&st);
-
+            if(p_second != st.wSecond || g_start_flag)
+            {   // background font
                 glColor3f(0.05f, 0.05f, 0.05f);
-            if (st.wSecond % 2 == 0 || g_start_flag) {
-                draw_symbol(8, -19, -9, 5, 9, digit_matrix);
-                draw_symbol(8, -13, -9, 5, 9, digit_matrix);
-                draw_symbol(8, -5, -9, 5, 9, digit_matrix);
-                draw_symbol(8, 1, -9, 5, 9, digit_matrix);
+                draw_symbol(8, -19, -8, 5, 9, digit_matrix);
+                draw_symbol(8, -13, -8, 5, 9, digit_matrix);
+                draw_symbol(8, -5, -8, 5, 9, digit_matrix);
+                draw_symbol(8, 1, -8, 5, 9, digit_matrix);
+                draw_symbol(8, 9, -8, 5, 9, digit_matrix);
+                draw_symbol(8, 15, -8, 5, 9, digit_matrix);
+                draw_symbol(2, -7, -8, 1, 9, dots_matrix);
+                draw_symbol(2, 7, -8, 1, 9, dots_matrix);
+
+                    glColor3f(0.3f, 0.15f, 0.0f);
+                draw_symbol(st.wHour / 10, -19, -8, 5, 9, digit_matrix);
+                draw_symbol(st.wHour % 10, -13, -8, 5, 9, digit_matrix);
+                draw_symbol(st.wMinute / 10, -5, -8, 5, 9, digit_matrix);
+                draw_symbol(st.wMinute % 10, 1, -8, 5, 9, digit_matrix);
+
+                if (st.wSecond % 2 == 1)
+                {
+                    //glColor3f(0.27f, 0.17, 0.1f);
+                    glColor3f(0.2f, 0.25f, 0.15f);
+                    draw_symbol(st.wDayOfWeek, -13, 3, 7, 5, w_deys_matrix);
+                    draw_symbol(st.wDay / 10, -4, 2, 4, 7, m_deys_matrix);
+                    draw_symbol(st.wDay % 10, 2, 2, 4, 7, m_deys_matrix);
+//                        g_start_flag = FALSE;
+                }
+                // Seconds
+                draw_symbol(st.wSecond / 10, 9, -8, 5, 9, digit_matrix);
+                draw_symbol(st.wSecond % 10, 15, -8, 5, 9, digit_matrix);
+                //Dot blink
+                int dc = st.wSecond % 2;
+                draw_symbol(dc, -7, -8, 1, 9, dots_matrix);
+                draw_symbol(dc, 7, -8, 1, 9, dots_matrix);
+
+                wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
+                p_second = st.wSecond;
+                //Sleep(10);
             }
-                draw_symbol(8, 9, -9, 5, 9, digit_matrix);
-                draw_symbol(8, 15, -9, 5, 9, digit_matrix);
 
-                draw_symbol(2, -7, -9, 1, 9, dots_matrix);
-                draw_symbol(2, 7, -9, 1, 9, dots_matrix);
+            int c_count = (st.wSecond % 10 == 0) ? 20 : g_start_flag;
 
-                glColor3f(0.17f, 0.15f, 0.15f);
-            if (st.wSecond % 2 == 0 || g_start_flag) {
-
-                draw_symbol(st.wHour / 10, -19, -9, 5, 9, digit_matrix);
-                draw_symbol(st.wHour % 10, -13, -9, 5, 9, digit_matrix);
-                draw_symbol(st.wMinute / 10, -5, -9, 5, 9, digit_matrix);
-                draw_symbol(st.wMinute % 10, 1, -9, 5, 9, digit_matrix);
-
-                glColor3f(0.15f, 0.14f, 0.14f);
-                draw_symbol(st.wDayOfWeek, -13, 2, 7, 5, w_deys_matrix);
-                draw_symbol(st.wDay / 10, -4, 2, 4, 7, m_deys_matrix);
-                draw_symbol(st.wDay % 10, 2, 2, 4, 7, m_deys_matrix);
-                    g_start_flag = FALSE;
-
-            }
-
-            draw_symbol(st.wSecond / 10, 9, -9, 5, 9, digit_matrix);
-            draw_symbol(st.wSecond % 10, 15, -9, 5, 9, digit_matrix);
-
-            int dc = st.wSecond % 2;
-            draw_symbol(dc, -7, -9, 1, 9, dots_matrix);
-            draw_symbol(dc, 7, -9, 1, 9, dots_matrix);
-
-            wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
-
-            Sleep(10);
-
-            float grey = rand()%10 * 0.01f;
-            glColor3f(grey, grey, grey);
-            for(int gw = 0; gw < 10; gw++) {
+            // background grey circles
+            if(!c_count)
+            {
+                float grey = rand()%10 * 0.01f;
+                glColor3f(grey, grey, grey);
+                //for(int gw = 0; gw < 10; gw++) {
                 float ix = rand_range(-cx, cx) * space;
                 float iy = rand_range(-cy, cy) * space;
                 TBall_Init(&ball, (float)ix, (float)iy, step);
-                TBall_Show(ball);
-            Sleep(10);
-
+                TBall_Draw(ball);
+                //wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
+                Sleep(10);
+                //}
             }
+            else
+            {
+                // color circles
+                float rc = rand()%10 * 0.01;
+                for(int gw = 0; gw < c_count; gw++)
+                {
+                    float gc = rand()%20 * 0.01;
+                    glColor3f(0.15+rc, gc, 0.0f);
+                    float ix = rand_range(-cx, cx) * space;
+                    float iy = rand_range(-cy, cy) * space;
+                    TBall_Init(&ball, (float)ix, (float)iy, step);
+                    TBall_Draw(ball);
+                    wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
+                    Sleep(1);
+                }
+            }
+            wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
+            g_start_flag = 0;
+
         }
     }
 
@@ -431,40 +457,41 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
     {
-        case WM_CREATE:
+    case WM_CREATE:
+    {
+        ShowCursor(FALSE);
+    }
+    break;
+
+    case WM_CLOSE:
+        PostQuitMessage(0);
+        break;
+
+    case WM_DESTROY:
+        return 0;
+
+    case WM_MOUSEMOVE:
+    {
+        int x = GET_X_LPARAM(lParam);
+        if (!mouse_x_init)
         {
-            ShowCursor(FALSE);
+            mouse_x_init = x;
         }
-        break;
-
-        case WM_CLOSE:
-            PostQuitMessage(0);
-        break;
-
-        case WM_DESTROY:
-            return 0;
-
-        case WM_MOUSEMOVE:
-        {
-            int x = GET_X_LPARAM(lParam);
-            if (!mouse_x_init) {
-                 mouse_x_init = x;
-            }
-            if (mouse_x_init != x)
-            {
-                PostQuitMessage(0);
-            }
-        }
-        break;
-
-        case WM_KEYDOWN:
+        if (mouse_x_init != x)
         {
             PostQuitMessage(0);
         }
-        break;
+    }
+    break;
 
-        default:
-            return DefWindowProc(hwnd, uMsg, wParam, lParam);
+    case WM_KEYDOWN:
+    {
+        PostQuitMessage(0);
+    }
+    break;
+
+    default:
+        return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
 
     return 0;
@@ -508,14 +535,32 @@ void DisableOpenGL (HWND hwnd, HDC hDC, HGLRC hRC)
     ReleaseDC(hwnd, hDC);
 }
 
-
-
 BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	return FALSE;
+    switch (message)
+    {
+    case WM_INITDIALOG:
+    {
+        //////////////
+    }
+
+    case WM_CTLCOLORBTN:
+
+    case IDC_GOGITBTN:
+        ShellExecute(hDlg, "Open", "https://github.com/rty65tt/watch.scr", (LPCTSTR)NULL, (LPCTSTR)NULL, SW_SHOW);
+        break;
+    case IDOK:
+        EndDialog(hDlg, LOWORD(wParam));
+        break;
+
+    case IDCANCEL:
+        EndDialog(hDlg, LOWORD(wParam));
+        break;
+    }
+    return FALSE;
 }
 
 BOOL WINAPI RegisterDialogClasses(HANDLE hInst)
 {
-	return TRUE;
+    return TRUE;
 }

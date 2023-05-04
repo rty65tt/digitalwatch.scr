@@ -265,83 +265,83 @@ LONG WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     switch (uMsg)
     {
-        case WM_CREATE:
-        {
+    case WM_CREATE:
+    {
 
-            EnableOpenGL(hwnd, &hDC, &hRC);
-            width = rc.right;
-            height = rc.bottom;
+        EnableOpenGL(hwnd, &hDC, &hRC);
+        width = rc.right;
+        height = rc.bottom;
 
-            koef = width > height ? (float)width / height: (float)height / width;
-            //koef = (float)width / height;
-    //        cout << "RECT " << rc.right << " x " << rc.bottom << endl;
-    //        cout << "RECT " << mi.rcMonitor.right << " x " << mi.rcMonitor.bottom << endl;
-    //        cout << "RECT " << width << " x " << height << endl;
+        koef = width > height ? (float)width / height: (float)height / width;
+        //koef = (float)width / height;
+        //        cout << "RECT " << rc.right << " x " << rc.bottom << endl;
+        //        cout << "RECT " << mi.rcMonitor.right << " x " << mi.rcMonitor.bottom << endl;
+        //        cout << "RECT " << width << " x " << height << endl;
 
-            step = 1.0f / 64.0f ;
-            space = step * 2.5f;  // Space
-            cy = 1 / space;
-            cx = cy * koef;
+        step = 1.0f / 64.0f ;
+        space = step * 2.5f;  // Space
+        cy = 1 / space;
+        cx = cy * koef;
 
-            glLoadIdentity();
-            float xy_scale = 0.9f;
-            glOrtho(-xy_scale,xy_scale, -xy_scale,xy_scale, -1, 1);
+        glLoadIdentity();
+        float xy_scale = 0.9f;
+        glOrtho(-xy_scale,xy_scale, -xy_scale,xy_scale, -1, 1);
 
-            //float sc =
+        //float sc =
 
-            glScalef( 1 / koef, 1, 1);
+        glScalef( 1 / koef, 1, 1);
 
-            Game_Init(hDC);
+        Game_Init(hDC);
 
-            uTimer = (UINT)SetTimer(hwnd, 1, 1, NULL);
-        }
+        uTimer = (UINT)SetTimer(hwnd, 1, 1, NULL);
+    }
 
-        case WM_ERASEBKGND:
-        {
-            // Erase screensaver background
-        }
-        break;
+    case WM_ERASEBKGND:
+    {
+        // Erase screensaver background
+    }
+    break;
 
-        case WM_TIMER:
-        {
-            // Handle timer
-            Update();
-        }
-        break;
+    case WM_TIMER:
+    {
+        // Handle timer
+        Update();
+    }
+    break;
 
-        case WM_DESTROY:
-        {
+    case WM_DESTROY:
+    {
 
-            KillTimer(hwnd, uTimer);
-            DisableOpenGL(hwnd, hDC, hRC);
-            DestroyWindow(hwnd);
-            PostQuitMessage(0);
-        }
-        break;
+        KillTimer(hwnd, uTimer);
+        DisableOpenGL(hwnd, hDC, hRC);
+        DestroyWindow(hwnd);
+        PostQuitMessage(0);
+    }
+    break;
 
-        case WM_PAINT:
-        {
-            Render(&hDC);
-        }
-        break;
+    case WM_PAINT:
+    {
+        Render(&hDC);
+    }
+    break;
 
-        case WM_MOUSEMOVE:
-        {
-                //PostQuitMessage(0);
-        }
-        break;
+    case WM_MOUSEMOVE:
+    {
+        //PostQuitMessage(0);
+    }
+    break;
 
-        case WM_KEYDOWN:
-        {
-            PostQuitMessage(0);
-        }
-        break;
+    case WM_KEYDOWN:
+    {
+        PostQuitMessage(0);
+    }
+    break;
 
-        default:
-        {
-            return DefScreenSaverProc(hwnd, uMsg, wParam, lParam);
-        }
-        break;
+    default:
+    {
+        return DefScreenSaverProc(hwnd, uMsg, wParam, lParam);
+    }
+    break;
     }
     return 0;
 }

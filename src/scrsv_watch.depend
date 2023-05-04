@@ -37,3 +37,53 @@
 	<scrnsave.h>
 	<CommCtrl.h>
 
+1683152560 source:f:\dev\projects\watch.scr\src\main_win.cpp
+	<windows.h>
+	<Windowsx.h>
+	<gl/gl.h>
+	<math.h>
+	<scrnsave.h>
+	<CommCtrl.h>
+	"CommDlg.h"
+	"SimpleIni.h"
+	"resource.h"
+
+1683154267 source:f:\dev\projects\watch.scr\src\resources.rc
+	<windows.h>
+	"resource.h"
+
+1683134930 f:\dev\projects\watch.scr\src\resource.h
+
+1683150079 f:\dev\projects\watch.scr\src\simpleini.h
+	<cstring>
+	<cstdlib>
+	<string>
+	<map>
+	<list>
+	<algorithm>
+	<stdio.h>
+	<iostream>
+	<cassert>
+	<unicode/ustring.h>
+	<wchar.h>
+	"ConvertUTF.h"
+	<unicode/ucnv.h>
+	<windows.h>
+	<mbstring.h>
+
+1683157878 source:f:\dev\projects\bloodigitalwatch.scr\src\main_win.cpp
+	<windows.h>
+	<Windowsx.h>
+	<gl/gl.h>
+	<math.h>
+	<scrnsave.h>
+	<CommCtrl.h>
+	"CommDlg.h"
+	"resource.h"
+
+1683134930 f:\dev\projects\bloodigitalwatch.scr\src\resource.h
+
+1683154267 source:f:\dev\projects\bloodigitalwatch.scr\src\resources.rc
+	<windows.h>
+	"resource.h"
+

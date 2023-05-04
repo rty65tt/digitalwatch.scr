@@ -1,5 +1,9 @@
 
-# Watch / Clock Screensaver for MS Windows 
+# Bloody Digital Watch / Clock Screensaver for MS Windows OpenGL
+
+
+## Screenshot
+![screensot1](screenshot1.png  "Screenshot1")
 
 
 ## Build
