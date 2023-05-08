@@ -406,7 +406,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
                 //Sleep(10);
             }
 
-            int c_count = (st.wSecond % 10 == 0) ? 20 : g_start_flag;
+            int c_count = (st.wSecond == 0) ? 20 : g_start_flag;
 
             // background grey circles
             if(!c_count)
@@ -419,24 +419,24 @@ int WINAPI WinMain(HINSTANCE hInstance,
                 TBall_Init(&ball, (float)ix, (float)iy, step);
                 TBall_Draw(ball);
                 //wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
-                Sleep(10);
+                Sleep(100);
                 //}
             }
             else
             {
                 // color circles
                 float rc = rand()%10 * 0.01;
-                for(int gw = 0; gw < c_count; gw++)
-                {
+//                for(int gw = 0; gw < c_count; gw++)
+//                {
                     float gc = rand()%20 * 0.01;
                     glColor3f(0.15+rc, gc, 0.0f);
                     float ix = rand_range(-cx, cx) * space;
                     float iy = rand_range(-cy, cy) * space;
                     TBall_Init(&ball, (float)ix, (float)iy, step);
                     TBall_Draw(ball);
-                    wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
-                    Sleep(1);
-                }
+                    //wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
+                    //Sleep(1);
+//                }
             }
             wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
             g_start_flag = 0;
