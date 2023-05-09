@@ -71,14 +71,16 @@
 	<windows.h>
 	<mbstring.h>
 
-1683195369 source:f:\dev\projects\bloodigitalwatch.scr\src\main_win.cpp
+1683663753 source:f:\dev\projects\bloodigitalwatch.scr\src\main_win.cpp
 	<windows.h>
 	<Windowsx.h>
+	<winuser.h>
 	<gl/gl.h>
 	<math.h>
 	<scrnsave.h>
 	<CommCtrl.h>
 	"CommDlg.h"
+	<iostream>
 	"resource.h"
 
 1683134930 f:\dev\projects\bloodigitalwatch.scr\src\resource.h
@@ -86,4 +88,12 @@
 1683154267 source:f:\dev\projects\bloodigitalwatch.scr\src\resources.rc
 	<windows.h>
 	"resource.h"
+
+1683659779 source:f:\dev\projects\bloodigitalwatch.scr\src\main_scr.cpp
+	<Windows.h>
+	<gl\GL.h>
+	<gl\GLU.h>
+	<ScrnSave.h>
+	<CommCtrl.h>
+	<math.h>
 

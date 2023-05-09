@@ -6,14 +6,14 @@
 		<Option platforms="Windows;" />
 		<Option execution_dir="F:/dev/projects/scrsvr_watch/src/" />
 		<Option pch_mode="2" />
-		<Option compiler="gcc" />
+		<Option compiler="gnu_gcc_compiler_630" />
 		<Build>
 			<Target title="Debug">
 				<Option platforms="Windows;" />
 				<Option output="bin/Debug/scrsv_watch.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
-				<Option compiler="gcc" />
+				<Option compiler="gnu_gcc_compiler_630" />
 				<Option parameters="-s" />
 				<Compiler>
 					<Add option="-g" />
@@ -24,7 +24,7 @@
 				<Option output="bin/Release/scrsv_watch.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
-				<Option compiler="gcc" />
+				<Option compiler="gnu_gcc_compiler_630" />
 				<Option parameters="-s" />
 				<Compiler>
 					<Add option="-O2" />
@@ -38,7 +38,7 @@
 				<Option output="bin/Debug/scrsv_watch[scr].scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
-				<Option compiler="gcc" />
+				<Option compiler="gnu_gcc_compiler_630" />
 				<Option parameters="-s" />
 				<Compiler>
 					<Add option="-g" />
@@ -49,7 +49,7 @@
 				<Option output="bin/Release/scrsv_watch[scr].scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
-				<Option compiler="gcc" />
+				<Option compiler="gnu_gcc_compiler_630" />
 				<Option parameters="-s" />
 				<Compiler>
 					<Add option="-O2" />
@@ -63,7 +63,7 @@
 				<Option output="bin/Release/scrsv_watch.v01.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
-				<Option compiler="gcc" />
+				<Option compiler="gnu_gcc_compiler_630" />
 				<Option parameters="-c" />
 				<Compiler>
 					<Add option="-O2" />

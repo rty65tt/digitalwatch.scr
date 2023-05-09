@@ -1,5 +1,7 @@
 #include <windows.h>
 #include <Windowsx.h>
+#include <winuser.h>
+
 #include <gl/gl.h>
 #include <math.h>
 #include <scrnsave.h>
@@ -7,8 +9,8 @@
 #include <CommCtrl.h>
 #include "CommDlg.h"
 
-//#include <iostream>
-//using namespace std;
+#include <iostream>
+using namespace std;
 //#include "SimpleIni.h"
 #include "resource.h"
 
@@ -22,7 +24,8 @@ int width;
 int height;
 float koef;
 
-static int mouse_x_init =0;
+static int mouse_x_init = 0;
+static int mon_count = 0;
 
 static SYSTEMTIME st;
 static int g_start_flag = 400;
@@ -82,6 +85,15 @@ void drawSquareFill()
     glVertex2f(-x, -x);
     glEnd();
 }
+
+typedef struct
+{
+    int left,right,top,buttom;
+    float koef,step,space;
+    int cx,cy;
+} TScreen;
+
+TScreen *mons_screen;
 
 typedef struct
 {
@@ -169,73 +181,128 @@ float rand_range(int range_min, int range_max)
     return r;
 }
 
-//BOOL CALLBACK MyInfoEnumProc(
-//  HMONITOR hMonitor,	// handle to display monitor
-//  HDC hdcMonitor,   	// handle to monitor DC
-//  LPRECT lprcMonitor,   // monitor intersection rectangle
-//  LPARAM dwData     	// data
-//)
-//{
-//    cout << "\n======== MonitorEnumProc START ===========" << endl;
-//
-//    HMONITOR hMon;
-//    static MONITORINFO mi;
-//    mi.cbSize = sizeof(mi);
-//    HWND desktop = GetDesktopWindow();
-//    RECT s_size;
-//    GetWindowRect(desktop, &s_size);
-//    cout << "======== GetWindowRect ===========" << endl;
-//    cout << "GetClientRect " << s_size.right << " x " << s_size.bottom << endl;
-//
-//    RECT rc;
-//    GetClientRect(desktop, &rc);
-//    cout << "======== GetClientRect ===========" << endl;
-//    cout << "GetClientRect " << rc.right << " x " << rc.bottom << endl;
-//
-//    GetMonitorInfo(hMonitor, &mi);
-//    cout << "======== hMonitor ================" << endl;
-//    cout << "GetMonitorInfo " << mi.rcMonitor.left << " x " << mi.rcMonitor.top << endl;
-//    cout << "GetMonitorInfo " << mi.rcMonitor.right << " x " << mi.rcMonitor.bottom << endl;
-//
-//    hMon = MonitorFromWindow(desktop, MONITOR_DEFAULTTOPRIMARY);
-//    GetMonitorInfo(hMon, &mi);
-//    cout << "======== MonitorFromWindow(desktop, MONITOR_DEFAULTTOPRIMARY) ===========" << endl;
-//    cout << "GetMonitorInfo " << mi.rcMonitor.left << " x " << mi.rcMonitor.top << endl;
-//    cout << "GetMonitorInfo " << mi.rcMonitor.right << " x " << mi.rcMonitor.bottom << endl;
-//
-//
-//    hMon = MonitorFromWindow(desktop, MONITOR_DEFAULTTONEAREST);
-//    GetMonitorInfo(hMon, &mi);
-//    cout << "======== MonitorFromWindow(desktop, MONITOR_DEFAULTTONEAREST) ===========" << endl;
-//    cout << "GetMonitorInfo " << mi.rcMonitor.left << " x " << mi.rcMonitor.top << endl;
-//    cout << "GetMonitorInfo " << mi.rcMonitor.right << " x " << mi.rcMonitor.bottom << endl;
-//
-//    hMon = MonitorFromWindow(desktop, MONITOR_DEFAULTTOPRIMARY);
-//    GetMonitorInfo(hMon, &mi);
-//    cout << "======== MonitorFromWindow(desktop, MONITOR_DEFAULTTOPRIMARY) ===========" << endl;
-//    cout << "MonitorFromWindow desktop, MONITOR_DEFAULTTOPRIMARY =  " << mi.rcMonitor.left << " x " << mi.rcMonitor.top << endl;
-//    cout << "MonitorFromWindow desktop, MONITOR_DEFAULTTOPRIMARY =  " << mi.rcMonitor.right << " x " << mi.rcMonitor.bottom << endl;
-//
-//
-//    hMon = MonitorFromWindow(desktop, MONITOR_DEFAULTTONEAREST);
-//    GetMonitorInfo(hMon, &mi);
-//    cout << "======== MonitorFromWindow(desktop, MONITOR_DEFAULTTONEAREST) ===========" << endl;
-//    cout << "MonitorFromWindow desktop, MONITOR_DEFAULTTONEAREST =  " << mi.rcMonitor.left << " x " << mi.rcMonitor.top << endl;
-//    cout << "MonitorFromWindow desktop, MONITOR_DEFAULTTONEAREST =  " << mi.rcMonitor.right << " x " << mi.rcMonitor.bottom << endl;
-//
-//    POINT p;
-//    p.x = GetSystemMetrics(SM_CXVIRTUALSCREEN);
-//    p.y = GetSystemMetrics(SM_CYVIRTUALSCREEN);
-//    hMon = MonitorFromPoint(p, MONITOR_DEFAULTTONEAREST);
-//    GetMonitorInfo(hMon, &mi);
-//
-//    cout << "========MonitorFromPoint ===========" << endl;
-//    cout << "MonitorFromPoint GetMonitorInfo mi.rcMonitor desktop =  " << mi.rcMonitor.left << " x " << mi.rcMonitor.top << endl;
-//    cout << "MonitorFromPoint GetMonitorInfo mi.rcMonitor desktop =  " << mi.rcMonitor.right << " x " << mi.rcMonitor.bottom << endl;
-//
-//
-//    cout << "========MonitorEnumProc END ===========\n" << endl;
-//}
+void draw_clock(HDC* hDC)
+{
+    if(p_second != st.wSecond || g_start_flag)
+    {   // background font
+        glColor3f(0.05f, 0.05f, 0.05f);
+        draw_symbol(8, -19, -8, 5, 9, digit_matrix);
+        draw_symbol(8, -13, -8, 5, 9, digit_matrix);
+        draw_symbol(8, -5, -8, 5, 9, digit_matrix);
+        draw_symbol(8, 1, -8, 5, 9, digit_matrix);
+        draw_symbol(8, 9, -8, 5, 9, digit_matrix);
+        draw_symbol(8, 15, -8, 5, 9, digit_matrix);
+        draw_symbol(2, -7, -8, 1, 9, dots_matrix);
+        draw_symbol(2, 7, -8, 1, 9, dots_matrix);
+
+            glColor3f(0.3f, 0.15f, 0.0f);
+        draw_symbol(st.wHour / 10, -19, -8, 5, 9, digit_matrix);
+        draw_symbol(st.wHour % 10, -13, -8, 5, 9, digit_matrix);
+        draw_symbol(st.wMinute / 10, -5, -8, 5, 9, digit_matrix);
+        draw_symbol(st.wMinute % 10, 1, -8, 5, 9, digit_matrix);
+
+        if (st.wSecond % 2 == 1)
+        {
+            //glColor3f(0.27f, 0.17, 0.1f);
+            glColor3f(0.2f, 0.25f, 0.15f);
+            draw_symbol(st.wDayOfWeek, -13, 3, 7, 5, w_deys_matrix);
+            draw_symbol(st.wDay / 10, -4, 2, 4, 7, m_deys_matrix);
+            draw_symbol(st.wDay % 10, 2, 2, 4, 7, m_deys_matrix);
+//                        g_start_flag = FALSE;
+        }
+        // Seconds
+        draw_symbol(st.wSecond / 10, 9, -8, 5, 9, digit_matrix);
+        draw_symbol(st.wSecond % 10, 15, -8, 5, 9, digit_matrix);
+        //Dot blink
+        int dc = st.wSecond % 2;
+        draw_symbol(dc, -7, -8, 1, 9, dots_matrix);
+        draw_symbol(dc, 7, -8, 1, 9, dots_matrix);
+
+        wglSwapLayerBuffers(*hDC, WGL_SWAP_MAIN_PLANE);
+        p_second = st.wSecond;
+        //Sleep(10);
+    }
+
+    int c_count = (st.wSecond == 0) ? 20 : g_start_flag;
+
+    // background grey circles
+    if(!c_count)
+    {
+        float grey = rand()%10 * 0.01f;
+        glColor3f(grey, grey, grey);
+        //for(int gw = 0; gw < 10; gw++) {
+        float ix = rand_range(-cx, cx) * space;
+        float iy = rand_range(-cy, cy) * space;
+        TBall_Init(&ball, (float)ix, (float)iy, step);
+        TBall_Draw(ball);
+        //wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
+        Sleep(100);
+        //}
+    }
+    else
+    {
+        // color circles
+        float rc = rand()%10 * 0.01;
+//                for(int gw = 0; gw < c_count; gw++)
+//                {
+            float gc = rand()%20 * 0.01;
+            glColor3f(0.15+rc, gc, 0.0f);
+            float ix = rand_range(-cx, cx) * space;
+            float iy = rand_range(-cy, cy) * space;
+            TBall_Init(&ball, (float)ix, (float)iy, step);
+            TBall_Draw(ball);
+            //wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
+            //Sleep(1);
+//                }
+    }
+    wglSwapLayerBuffers(*hDC, WGL_SWAP_MAIN_PLANE);
+    g_start_flag = 0;
+
+}
+
+
+
+BOOL CALLBACK MyInfoEnumProc(
+  HMONITOR hMonitor,	// handle to display monitor
+  HDC hdcMonitor,   	// handle to monitor DC
+  LPRECT lprcMonitor,   // monitor intersection rectangle
+  LPARAM dwData     	// data
+//  TScreen* mons     	// data
+)
+{
+    cout << "======== MonitorEnumProc START ===========" << endl;
+
+    HMONITOR hMon;
+    static MONITORINFO mi;
+    mi.cbSize = sizeof(mi);
+    HWND desktop = GetDesktopWindow();
+    RECT s_size;
+    GetWindowRect(desktop, &s_size);
+    GetMonitorInfo(hMonitor, &mi);
+    int width = mi.rcMonitor.right - mi.rcMonitor.left;
+    int height = mi.rcMonitor.bottom - mi.rcMonitor.top;
+
+    cout << "=== GetMonitorInfo(hMonitor, &mi); ====" << endl;
+    cout << "Monitor NUM = " << mon_count << endl;
+    cout << "Resolution = " << width << " x " << height << endl;
+    cout << "left = " << mi.rcMonitor.left << " top = " << mi.rcMonitor.top << endl;
+    cout << "right = " << mi.rcMonitor.right << " bottom = " << mi.rcMonitor.bottom << endl;
+
+    mons_screen[mon_count].koef = (float)width / height;
+    mons_screen[mon_count].step = 1.0f / 92.0f ;
+    mons_screen[mon_count].space = mons_screen[mon_count].step * 2.5f;  // Space
+    mons_screen[mon_count].cy = 1 / mons_screen[mon_count].space;
+    mons_screen[mon_count].cx = mons_screen[mon_count].cy * mons_screen[mon_count].koef;
+
+    cout << "koef = " << mons_screen[mon_count].koef << endl;
+    cout << "step = " << mons_screen[mon_count].step << endl;
+    cout << "space = " << mons_screen[mon_count].space << endl;
+    cout << "cx = " << mons_screen[mon_count].cx << endl;
+    cout << "cy = " << mons_screen[mon_count].cy << endl;
+
+    cout << "======== MonitorEnumProc END ===========\n" << endl;
+    mon_count++;
+}
 
 int WINAPI WinMain(HINSTANCE hInstance,
                    HINSTANCE hPrevInstance,
@@ -266,40 +333,18 @@ int WINAPI WinMain(HINSTANCE hInstance,
     if (!RegisterClassEx(&wcex))
         return 0;
 
-//    HWND desktop = GetDesktopWindow();
-//    RECT s_size;
-//    GetWindowRect(desktop, &s_size);
-//    cout << "GetSystemMetrics SM_CMONITORS =  " << GetSystemMetrics(SM_CMONITORS) << endl;
-//    cout << "GetSystemMetrics SM_CXFRAME =  " << GetSystemMetrics(SM_CXFRAME) << endl;
-//    cout << "GetSystemMetrics SM_CYFRAME =  " << GetSystemMetrics(SM_CYFRAME) << endl;
-//    cout << "GetSystemMetrics SM_CXFULLSCREEN =  " << GetSystemMetrics(SM_CXFULLSCREEN) << endl;
-//    cout << "GetSystemMetrics SM_CYFULLSCREEN =  " << GetSystemMetrics(SM_CYFULLSCREEN) << endl;
-//    cout << "GetSystemMetrics SM_CXSCREEN =  " << GetSystemMetrics(SM_CXSCREEN) << endl;
-//    cout << "GetSystemMetrics SM_CYSCREEN =  " << GetSystemMetrics(SM_CYSCREEN) << endl;
-//    cout << "GetSystemMetrics SM_CXSIZEFRAME =  " << GetSystemMetrics(SM_CXSIZEFRAME) << endl;
-//    cout << "GetSystemMetrics SM_CYSIZEFRAME  =  " << GetSystemMetrics(SM_CYSIZEFRAME ) << endl;
-//    cout << "GetSystemMetrics SM_CXVIRTUALSCREEN =  " << GetSystemMetrics(SM_CXVIRTUALSCREEN) << endl;
-//    cout << "GetSystemMetrics SM_CYVIRTUALSCREEN =  " << GetSystemMetrics(SM_CYVIRTUALSCREEN) << endl;
-//    cout << "GetSystemMetrics SM_XVIRTUALSCREEN =  " << GetSystemMetrics(SM_XVIRTUALSCREEN) << endl;
-//    cout << "GetSystemMetrics SM_YVIRTUALSCREEN =  " << GetSystemMetrics(SM_YVIRTUALSCREEN) << endl;
-//
-//    cout << "GetWindowRect desktop = " << s_size.right << " x " << s_size.bottom << endl;
-
 //    width = GetSystemMetrics(SM_CXVIRTUALSCREEN);
 //    height = GetSystemMetrics(SM_CYVIRTUALSCREEN);
+
+    int m_num = GetSystemMetrics(SM_CMONITORS);
+
+    TScreen mons[m_num];
+    mons_screen = mons;
 
     width = GetSystemMetrics(SM_CXSCREEN);
     height = GetSystemMetrics(SM_CYSCREEN);
 
-//    RECT rc;
-//    GetClientRect(desktop, &rc);
-//    cout << "GetClientRect desktop =  " << rc.right << " x " << rc.bottom << endl;
-//
-//
-//    cout << "hInstance =  " << hInstance << endl;
-//
-
-    //EnumDisplayMonitors(NULL, NULL, MyInfoEnumProc, 0);
+    EnumDisplayMonitors(NULL, NULL, MyInfoEnumProc, 0);
 
     /* create main window */
     hwnd = CreateWindowEx(0,
@@ -321,21 +366,14 @@ int WINAPI WinMain(HINSTANCE hInstance,
     SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, width, height, SWP_SHOWWINDOW);
 
     /* enable OpenGL for the window */
-    EnableOpenGL(hwnd, &hDC, &hRC);
-
-//    GetWindowRect(hwnd, &s_size);
-//    cout << "GetWindowRect hwnd =  " << s_size.right << " x " << s_size.bottom << endl;
-//
-//    GetClientRect(hwnd, &rc);
-//    cout << "GetClientRect hwnd =  " << rc.right << " x " << rc.bottom << endl;
 
     koef = (float)width / height;
-
     step = 1.0f / 92.0f ;
     space = step * 2.5f;  // Space
     cy = 1 / space;
     cx = cy * koef;
 
+    EnableOpenGL(hwnd, &hDC, &hRC);
     glLoadIdentity();
     float xy_scale = 0.9f;
     //float xy_scale = 1.2f;
@@ -366,81 +404,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
             /* OpenGL animation code goes here */
 
             GetLocalTime(&st);
-            if(p_second != st.wSecond || g_start_flag)
-            {   // background font
-                glColor3f(0.05f, 0.05f, 0.05f);
-                draw_symbol(8, -19, -8, 5, 9, digit_matrix);
-                draw_symbol(8, -13, -8, 5, 9, digit_matrix);
-                draw_symbol(8, -5, -8, 5, 9, digit_matrix);
-                draw_symbol(8, 1, -8, 5, 9, digit_matrix);
-                draw_symbol(8, 9, -8, 5, 9, digit_matrix);
-                draw_symbol(8, 15, -8, 5, 9, digit_matrix);
-                draw_symbol(2, -7, -8, 1, 9, dots_matrix);
-                draw_symbol(2, 7, -8, 1, 9, dots_matrix);
-
-                    glColor3f(0.3f, 0.15f, 0.0f);
-                draw_symbol(st.wHour / 10, -19, -8, 5, 9, digit_matrix);
-                draw_symbol(st.wHour % 10, -13, -8, 5, 9, digit_matrix);
-                draw_symbol(st.wMinute / 10, -5, -8, 5, 9, digit_matrix);
-                draw_symbol(st.wMinute % 10, 1, -8, 5, 9, digit_matrix);
-
-                if (st.wSecond % 2 == 1)
-                {
-                    //glColor3f(0.27f, 0.17, 0.1f);
-                    glColor3f(0.2f, 0.25f, 0.15f);
-                    draw_symbol(st.wDayOfWeek, -13, 3, 7, 5, w_deys_matrix);
-                    draw_symbol(st.wDay / 10, -4, 2, 4, 7, m_deys_matrix);
-                    draw_symbol(st.wDay % 10, 2, 2, 4, 7, m_deys_matrix);
-//                        g_start_flag = FALSE;
-                }
-                // Seconds
-                draw_symbol(st.wSecond / 10, 9, -8, 5, 9, digit_matrix);
-                draw_symbol(st.wSecond % 10, 15, -8, 5, 9, digit_matrix);
-                //Dot blink
-                int dc = st.wSecond % 2;
-                draw_symbol(dc, -7, -8, 1, 9, dots_matrix);
-                draw_symbol(dc, 7, -8, 1, 9, dots_matrix);
-
-                wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
-                p_second = st.wSecond;
-                //Sleep(10);
-            }
-
-            int c_count = (st.wSecond == 0) ? 20 : g_start_flag;
-
-            // background grey circles
-            if(!c_count)
-            {
-                float grey = rand()%10 * 0.01f;
-                glColor3f(grey, grey, grey);
-                //for(int gw = 0; gw < 10; gw++) {
-                float ix = rand_range(-cx, cx) * space;
-                float iy = rand_range(-cy, cy) * space;
-                TBall_Init(&ball, (float)ix, (float)iy, step);
-                TBall_Draw(ball);
-                //wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
-                Sleep(100);
-                //}
-            }
-            else
-            {
-                // color circles
-                float rc = rand()%10 * 0.01;
-//                for(int gw = 0; gw < c_count; gw++)
-//                {
-                    float gc = rand()%20 * 0.01;
-                    glColor3f(0.15+rc, gc, 0.0f);
-                    float ix = rand_range(-cx, cx) * space;
-                    float iy = rand_range(-cy, cy) * space;
-                    TBall_Init(&ball, (float)ix, (float)iy, step);
-                    TBall_Draw(ball);
-                    //wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
-                    //Sleep(1);
-//                }
-            }
-            wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
-            g_start_flag = 0;
-
+            //draw_clock(&hDC);
         }
     }
 

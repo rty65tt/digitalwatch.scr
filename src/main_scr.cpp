@@ -248,7 +248,7 @@ void Render(HDC *hDC)
 
 }
 
-LONG WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     HDC hDC;
     HGLRC hRC;
