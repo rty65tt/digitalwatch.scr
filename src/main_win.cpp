@@ -4,57 +4,16 @@
 
 #include <gl/gl.h>
 #include <math.h>
-#include <scrnsave.h>
+//#include <scrnsave.h>
 
 #include <CommCtrl.h>
 #include "CommDlg.h"
+#include "main.h"
 
+#include <vector>
 #include <iostream>
 using namespace std;
-//#include "SimpleIni.h"
-#include "resource.h"
-
-//#define PI       3.14159265358979323846   // pi
-#define TIMER   1
-
-extern HINSTANCE    hMainInstance;      // screen saver instance handle
-extern BOOL         fChildPreview;
-
-int width;
-int height;
-float koef;
-
-static int mouse_x_init = 0;
-static int mon_count = 0;
-
-static SYSTEMTIME st;
-static int g_start_flag = 400;
-static int p_second;
-
-static char digit_matrix[451] = "\
-111111000110001100011000110001100011000111111\
-000110000100001000010000100001000010000100001\
-111110000100001000011111110000100001000011111\
-111110000100001000010111100001000010000111111\
-100011000110001100011111100001000010000100001\
-111111000010000100001111100001000010000111111\
-111111000010000100001111110001100011000111111\
-111111000100001000010000100001000010000100001\
-111111000110001100011111110001100011000111111\
-111111000110001100011111100001000010000111111";
-
-static char dots_matrix[136] = "\
-001000100\
-000101000\
-001101100";
-
-static char m_deys_matrix[281] = "1111100110011001100110011111001100010001000100010001000111110001000111111000100011111111000100010111000100011111100110011001111100010001000111111000100011110001000111111111100010001111100110011111111110010001001001000100010011111001100111111001100111111111100110011111000100011111";
-static char w_deys_matrix[246] = "11101111010100111010010101001110111111010110101011010111101010110101011110111101001011100101010010111001011101111000101100011110001001110100101011110100101110010001001000100101110111101001010100101010010101001011101111000100100011110001011110111";
-
-static float space;
-static float step;
-static int cx;
-static int cy;
+//#include "resource.h"
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 void EnableOpenGL(HWND hwnd, HDC*, HGLRC*);
@@ -88,9 +47,11 @@ void drawSquareFill()
 
 typedef struct
 {
+    BOOL flag_init = TRUE;
+    HWND hwnd;
     int left,right,top,buttom;
-    float koef,step,space;
-    int cx,cy;
+    float koef;
+    int cx;
 } TScreen;
 
 TScreen *mons_screen;
@@ -116,11 +77,11 @@ void TBall_Draw(TBall obj)
     glTranslatef(obj.x, obj.y, 0);
     glScalef(obj.r, obj.r, 1);
     //drawSquareFill();
-    drawCircleFill(12);
+    drawCircleFill(CIRCLE_EDGES);
     glPopMatrix();
 }
 
-void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
+void draw_symbol(unsigned int m, int x, int y, int cel, int row, int mon_num, char *p_matrix)
 {
     int bm_x = 0;
     int bm_y = 0;
@@ -153,25 +114,24 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
     }
 }
 
-
-void Screensaver_Init(HDC hDC)
+void Screensaver_Init(HDC* hDC, int mon_num)
 {
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glDisable(GL_DEPTH_TEST);
 
 
-    for (float iy=-cy; iy < cy; iy++)
+    for (int iy=-cy; iy <= cy; iy++)
     {
-        for (float ix=-cx; ix < cx; ix++)
+        for (int ix=-mons_screen[mon_num].cx; ix <= mons_screen[mon_num].cx; ix++)
         {
             float grey = rand()%10  * 0.01f ;
             glColor3f(0.1f + grey, grey, 0.0f);
-            TBall_Init(&ball, (float)ix*space, (float)iy*space, step);
+            TBall_Init(&ball, (float)ix * space, (float)iy * space, step);
             TBall_Draw(ball);
         }
     }
-    wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
+    wglSwapLayerBuffers(*hDC, WGL_SWAP_MAIN_PLANE);
 }
 
 
@@ -181,45 +141,41 @@ float rand_range(int range_min, int range_max)
     return r;
 }
 
-void draw_clock(HDC* hDC)
+void draw_clock(HDC* hDC, int mon_num)
 {
-    if(p_second != st.wSecond || g_start_flag)
+    if(p_second != st.wSecond || mons_screen[mon_num].flag_init)
     {   // background font
         glColor3f(0.05f, 0.05f, 0.05f);
-        draw_symbol(8, -19, -8, 5, 9, digit_matrix);
-        draw_symbol(8, -13, -8, 5, 9, digit_matrix);
-        draw_symbol(8, -5, -8, 5, 9, digit_matrix);
-        draw_symbol(8, 1, -8, 5, 9, digit_matrix);
-        draw_symbol(8, 9, -8, 5, 9, digit_matrix);
-        draw_symbol(8, 15, -8, 5, 9, digit_matrix);
-        draw_symbol(2, -7, -8, 1, 9, dots_matrix);
-        draw_symbol(2, 7, -8, 1, 9, dots_matrix);
+        draw_symbol(8, -19, -8, 5, 9,   mon_num, digit_matrix);
+        draw_symbol(8, -13, -8, 5, 9,   mon_num, digit_matrix);
+        draw_symbol(8, -5, -8, 5, 9,    mon_num, digit_matrix);
+        draw_symbol(8, 1, -8, 5, 9,     mon_num, digit_matrix);
+        draw_symbol(8, 9, -8, 5, 9,     mon_num, digit_matrix);
+        draw_symbol(8, 15, -8, 5, 9,    mon_num, digit_matrix);
+        draw_symbol(2, -7, -8, 1, 9,    mon_num, dots_matrix);
+        draw_symbol(2, 7, -8, 1, 9,     mon_num, dots_matrix);
 
             glColor3f(0.3f, 0.15f, 0.0f);
-        draw_symbol(st.wHour / 10, -19, -8, 5, 9, digit_matrix);
-        draw_symbol(st.wHour % 10, -13, -8, 5, 9, digit_matrix);
-        draw_symbol(st.wMinute / 10, -5, -8, 5, 9, digit_matrix);
-        draw_symbol(st.wMinute % 10, 1, -8, 5, 9, digit_matrix);
+        draw_symbol(st.wHour / 10, -19, -8, 5, 9,   mon_num, digit_matrix);
+        draw_symbol(st.wHour % 10, -13, -8, 5, 9,   mon_num, digit_matrix);
+        draw_symbol(st.wMinute / 10, -5, -8, 5, 9,  mon_num, digit_matrix);
+        draw_symbol(st.wMinute % 10, 1, -8, 5, 9,   mon_num, digit_matrix);
 
-        if (st.wSecond % 2 == 1)
-        {
-            //glColor3f(0.27f, 0.17, 0.1f);
+        if (st.wSecond % 2 == 1) {
             glColor3f(0.2f, 0.25f, 0.15f);
-            draw_symbol(st.wDayOfWeek, -13, 3, 7, 5, w_deys_matrix);
-            draw_symbol(st.wDay / 10, -4, 2, 4, 7, m_deys_matrix);
-            draw_symbol(st.wDay % 10, 2, 2, 4, 7, m_deys_matrix);
-//                        g_start_flag = FALSE;
+            draw_symbol(st.wDayOfWeek, -13, 3, 7, 5,    mon_num, w_deys_matrix);
+            draw_symbol(st.wDay / 10, -4, 2, 4, 7,      mon_num, m_deys_matrix);
+            draw_symbol(st.wDay % 10, 2, 2, 4, 7,       mon_num, m_deys_matrix);
         }
         // Seconds
-        draw_symbol(st.wSecond / 10, 9, -8, 5, 9, digit_matrix);
-        draw_symbol(st.wSecond % 10, 15, -8, 5, 9, digit_matrix);
+        draw_symbol(st.wSecond / 10, 9, -8, 5, 9,   mon_num, digit_matrix);
+        draw_symbol(st.wSecond % 10, 15, -8, 5, 9,  mon_num, digit_matrix);
         //Dot blink
         int dc = st.wSecond % 2;
-        draw_symbol(dc, -7, -8, 1, 9, dots_matrix);
-        draw_symbol(dc, 7, -8, 1, 9, dots_matrix);
+        draw_symbol(dc, -7, -8, 1, 9,   mon_num, dots_matrix);
+        draw_symbol(dc, 7, -8, 1, 9,    mon_num, dots_matrix);
 
         wglSwapLayerBuffers(*hDC, WGL_SWAP_MAIN_PLANE);
-        p_second = st.wSecond;
         //Sleep(10);
     }
 
@@ -230,34 +186,23 @@ void draw_clock(HDC* hDC)
     {
         float grey = rand()%10 * 0.01f;
         glColor3f(grey, grey, grey);
-        //for(int gw = 0; gw < 10; gw++) {
-        float ix = rand_range(-cx, cx) * space;
+        float ix = rand_range(-mons_screen[mon_num].cx, mons_screen[mon_num].cx) * space;
         float iy = rand_range(-cy, cy) * space;
         TBall_Init(&ball, (float)ix, (float)iy, step);
         TBall_Draw(ball);
-        //wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
         Sleep(100);
-        //}
-    }
-    else
-    {
+    } else {
         // color circles
         float rc = rand()%10 * 0.01;
-//                for(int gw = 0; gw < c_count; gw++)
-//                {
-            float gc = rand()%20 * 0.01;
-            glColor3f(0.15+rc, gc, 0.0f);
-            float ix = rand_range(-cx, cx) * space;
-            float iy = rand_range(-cy, cy) * space;
-            TBall_Init(&ball, (float)ix, (float)iy, step);
-            TBall_Draw(ball);
-            //wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
-            //Sleep(1);
-//                }
+        float gc = rand()%20 * 0.01;
+        glColor3f(0.15+rc, gc, 0.0f);
+        float ix = rand_range(-mons_screen[mon_num].cx, mons_screen[mon_num].cx) * space;
+        float iy = rand_range(-cy, cy) * space;
+        TBall_Init(&ball, (float)ix, (float)iy, step);
+        TBall_Draw(ball);
     }
     wglSwapLayerBuffers(*hDC, WGL_SWAP_MAIN_PLANE);
     g_start_flag = 0;
-
 }
 
 
@@ -267,41 +212,95 @@ BOOL CALLBACK MyInfoEnumProc(
   HDC hdcMonitor,   	// handle to monitor DC
   LPRECT lprcMonitor,   // monitor intersection rectangle
   LPARAM dwData     	// data
-//  TScreen* mons     	// data
 )
 {
-    cout << "======== MonitorEnumProc START ===========" << endl;
+    HWND hwnd;
+    HDC hDC;
+    HGLRC hRC;
 
-    HMONITOR hMon;
-    static MONITORINFO mi;
-    mi.cbSize = sizeof(mi);
-    HWND desktop = GetDesktopWindow();
-    RECT s_size;
-    GetWindowRect(desktop, &s_size);
-    GetMonitorInfo(hMonitor, &mi);
-    int width = mi.rcMonitor.right - mi.rcMonitor.left;
-    int height = mi.rcMonitor.bottom - mi.rcMonitor.top;
+    if(mons_screen[mon_count].flag_init) {
 
-    cout << "=== GetMonitorInfo(hMonitor, &mi); ====" << endl;
-    cout << "Monitor NUM = " << mon_count << endl;
-    cout << "Resolution = " << width << " x " << height << endl;
-    cout << "left = " << mi.rcMonitor.left << " top = " << mi.rcMonitor.top << endl;
-    cout << "right = " << mi.rcMonitor.right << " bottom = " << mi.rcMonitor.bottom << endl;
+        cout << "=== MonitorEnumProc START ===========" << endl;
 
-    mons_screen[mon_count].koef = (float)width / height;
-    mons_screen[mon_count].step = 1.0f / 92.0f ;
-    mons_screen[mon_count].space = mons_screen[mon_count].step * 2.5f;  // Space
-    mons_screen[mon_count].cy = 1 / mons_screen[mon_count].space;
-    mons_screen[mon_count].cx = mons_screen[mon_count].cy * mons_screen[mon_count].koef;
+        static MONITORINFO mi;
+        mi.cbSize = sizeof(mi);
+        HWND desktop = GetDesktopWindow();
+        RECT s_size;
+        GetWindowRect(desktop, &s_size);
+        GetMonitorInfo(hMonitor, &mi);
+        int width = mi.rcMonitor.right - mi.rcMonitor.left;
+        int height = mi.rcMonitor.bottom - mi.rcMonitor.top;
 
-    cout << "koef = " << mons_screen[mon_count].koef << endl;
-    cout << "step = " << mons_screen[mon_count].step << endl;
-    cout << "space = " << mons_screen[mon_count].space << endl;
-    cout << "cx = " << mons_screen[mon_count].cx << endl;
-    cout << "cy = " << mons_screen[mon_count].cy << endl;
+        cout << "=== GetMonitorInfo(hMonitor, &mi); ====" << endl;
+        cout << "Monitor NUM = " << mon_count << endl;
+        cout << "Resolution = " << width << " x " << height << endl;
+        cout << "left = " << mi.rcMonitor.left << " top = " << mi.rcMonitor.top << endl;
+        cout << "right = " << mi.rcMonitor.right << " bottom = " << mi.rcMonitor.bottom << endl;
 
-    cout << "======== MonitorEnumProc END ===========\n" << endl;
+        mons_screen[mon_count].koef = width > height ? (float)width / height: (float)height / width;
+        mons_screen[mon_count].cx = cy * mons_screen[mon_count].koef;
+
+        char class_name[256];
+
+        WNDCLASSEX wcex;
+        /* register window class */
+        wcex.cbSize = sizeof(WNDCLASSEX);
+        wcex.style = CS_HREDRAW|CS_VREDRAW|CS_OWNDC;
+        wcex.lpfnWndProc = WindowProc;
+        wcex.cbClsExtra = 0;
+        wcex.cbWndExtra = 0;
+        wcex.hInstance = hMainInstance;
+        wcex.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+        wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+        wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+        wcex.lpszMenuName = NULL;
+        sprintf(class_name, "WindowClass%d", mon_count);
+        wcex.lpszClassName = class_name;
+        wcex.hIconSm = LoadIcon(NULL, IDI_APPLICATION);;
+
+        if (!RegisterClassEx(&wcex))
+            return 0;
+
+        /* create main window */
+        hwnd = CreateWindowEx(NULL,
+                              class_name,
+                              class_name,
+                              //WS_OVERLAPPEDWINDOW,
+                              WS_POPUP | WS_VISIBLE,
+                              mi.rcMonitor.left,      //CW_USEDEFAULT,
+                              0,      //CW_USEDEFAULT,
+                              width,
+                              height,
+                              NULL,
+                              NULL,
+                              hMainInstance,
+                              NULL);
+
+        ShowWindow(hwnd, SW_SHOW);
+
+        /* enable OpenGL for the window */
+        mons_screen[mon_count].hwnd = hwnd;
+        hwnd = mons_screen[mon_count].hwnd;
+        EnableOpenGL(hwnd, &hDC, &hRC);
+        glLoadIdentity();
+        glOrtho(-XYSCALE, XYSCALE, -XYSCALE, XYSCALE, -1, 1);
+        glScalef( 1 / mons_screen[mon_count].koef, 1, 1);
+        Screensaver_Init(&hDC, mon_count);
+        //DisableOpenGL(hwnd, hDC, hRC);        mons_screen[mon_count].flag_init = FALSE;
+    cout << "=== MonitorEnumProc END = Mon # " << mon_count << " ============\n" << endl;
+    }
+    hwnd = mons_screen[mon_count].hwnd;
+    hDC = GetDC(hwnd);
+    hRC = wglCreateContext(hDC);
+    wglMakeCurrent(hDC, hRC);
+//    EnableOpenGL(hwnd, &hDC, &hRC);
+    glLoadIdentity();
+    glOrtho(-XYSCALE, XYSCALE, -XYSCALE, XYSCALE, -1, 1);
+    glScalef( 1 / mons_screen[mon_count].koef, 1, 1);
+    draw_clock(&hDC, mon_count);
+    DisableOpenGL(hwnd, hDC, hRC);
     mon_count++;
+    return TRUE;
 }
 
 int WINAPI WinMain(HINSTANCE hInstance,
@@ -309,78 +308,17 @@ int WINAPI WinMain(HINSTANCE hInstance,
                    LPSTR lpCmdLine,
                    int nCmdShow)
 {
-    WNDCLASSEX wcex;
+    hMainInstance = hInstance;
     HWND hwnd;
-    HDC hDC;
-    HGLRC hRC;
     MSG msg;
     BOOL bQuit = FALSE;
 
-    /* register window class */
-    wcex.cbSize = sizeof(WNDCLASSEX);
-    wcex.style = CS_OWNDC;
-    wcex.lpfnWndProc = WindowProc;
-    wcex.cbClsExtra = 0;
-    wcex.cbWndExtra = 0;
-    wcex.hInstance = hInstance;
-    wcex.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-    wcex.lpszMenuName = NULL;
-    wcex.lpszClassName = "WindowsScreenSaverClass";
-    wcex.hIconSm = LoadIcon(NULL, IDI_APPLICATION);;
-
-    if (!RegisterClassEx(&wcex))
-        return 0;
-
-//    width = GetSystemMetrics(SM_CXVIRTUALSCREEN);
-//    height = GetSystemMetrics(SM_CYVIRTUALSCREEN);
-
-    int m_num = GetSystemMetrics(SM_CMONITORS);
+    m_num = GetSystemMetrics(SM_CMONITORS);
 
     TScreen mons[m_num];
     mons_screen = mons;
 
-    width = GetSystemMetrics(SM_CXSCREEN);
-    height = GetSystemMetrics(SM_CYSCREEN);
-
     EnumDisplayMonitors(NULL, NULL, MyInfoEnumProc, 0);
-
-    /* create main window */
-    hwnd = CreateWindowEx(0,
-                          "WindowsScreenSaverClass",
-                          "Screen Watch OpenGL",
-                          //WS_OVERLAPPEDWINDOW,
-                          WS_POPUP | WS_VISIBLE,
-                          0,      //CW_USEDEFAULT,
-                          0,      //CW_USEDEFAULT,
-                          width,
-                          height,
-                          NULL,
-                          NULL,
-                          hInstance,
-                          NULL);
-
-    ShowWindow(hwnd, nCmdShow);
-
-    SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, width, height, SWP_SHOWWINDOW);
-
-    /* enable OpenGL for the window */
-
-    koef = (float)width / height;
-    step = 1.0f / 92.0f ;
-    space = step * 2.5f;  // Space
-    cy = 1 / space;
-    cx = cy * koef;
-
-    EnableOpenGL(hwnd, &hDC, &hRC);
-    glLoadIdentity();
-    float xy_scale = 0.9f;
-    //float xy_scale = 1.2f;
-    glOrtho(-xy_scale,xy_scale, -xy_scale,xy_scale, -1, 1);
-
-    glScalef( 1 / koef, 1, 1);
-    Screensaver_Init(hDC);
 
     /* program main loop */
     while (!bQuit)
@@ -402,14 +340,16 @@ int WINAPI WinMain(HINSTANCE hInstance,
         else
         {
             /* OpenGL animation code goes here */
-
             GetLocalTime(&st);
-            //draw_clock(&hDC);
+            mon_count = 0;
+            EnumDisplayMonitors(NULL, NULL, MyInfoEnumProc, 0);
+            p_second = st.wSecond;
+            //Sleep(400);
         }
     }
 
     /* shutdown OpenGL */
-    DisableOpenGL(hwnd, hDC, hRC);
+    //DisableOpenGL(hwnd, hDC, hRC);
 
     /* destroy the window explicitly */
     DestroyWindow(hwnd);
@@ -497,34 +437,4 @@ void DisableOpenGL (HWND hwnd, HDC hDC, HGLRC hRC)
     wglMakeCurrent(NULL, NULL);
     wglDeleteContext(hRC);
     ReleaseDC(hwnd, hDC);
-}
-
-BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    switch (message)
-    {
-    case WM_INITDIALOG:
-    {
-        //////////////
-    }
-
-    case WM_CTLCOLORBTN:
-
-    case IDC_GOGITBTN:
-        ShellExecute(hDlg, "Open", "https://github.com/rty65tt/watch.scr", (LPCTSTR)NULL, (LPCTSTR)NULL, SW_SHOW);
-        break;
-    case IDOK:
-        EndDialog(hDlg, LOWORD(wParam));
-        break;
-
-    case IDCANCEL:
-        EndDialog(hDlg, LOWORD(wParam));
-        break;
-    }
-    return FALSE;
-}
-
-BOOL WINAPI RegisterDialogClasses(HANDLE hInst)
-{
-    return TRUE;
 }

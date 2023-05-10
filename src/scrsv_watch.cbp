@@ -81,7 +81,6 @@
 			<Add option="--def=main_win.def" />
 		</ResourceCompiler>
 		<Linker>
-			<Add option="-static-libgcc -static-libstdc++" />
 			<Add library="scrnsave" />
 			<Add library="comdlg32" />
 			<Add library="comctl32" />
@@ -90,28 +89,29 @@
 			<Add library="gdiplus" />
 			<Add library="gdi32" />
 		</Linker>
-		<Unit filename="SimpleIni.h" />
 		<Unit filename="icon.ico" />
-		<Unit filename="main.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug[scr]" />
-			<Option target="Release[scr]" />
-		</Unit>
+		<Unit filename="main.h" />
 		<Unit filename="main_scr.cpp">
-			<Option compilerVar="CC" />
-			<Option target="Release[scr]" />
 			<Option target="Debug[scr]" />
+			<Option target="Release[scr]" />
 		</Unit>
 		<Unit filename="main_win.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseDialog" />
 		</Unit>
-		<Unit filename="main_win.def" />
-		<Unit filename="resource.h" />
+		<Unit filename="main_win.def">
+			<Option target="Debug[scr]" />
+			<Option target="Release[scr]" />
+		</Unit>
+		<Unit filename="resource.h">
+			<Option target="Debug[scr]" />
+			<Option target="Release[scr]" />
+		</Unit>
 		<Unit filename="resources.rc">
 			<Option compilerVar="WINDRES" />
+			<Option target="Debug[scr]" />
+			<Option target="Release[scr]" />
 		</Unit>
 		<Unit filename="version.h" />
 		<Extensions>

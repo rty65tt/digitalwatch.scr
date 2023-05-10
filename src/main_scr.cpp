@@ -6,6 +6,7 @@
 #include <ScrnSave.h>
 #include <CommCtrl.h>
 #include <math.h>
+#include "main.h"
 
 //#include <iostream>
 //
@@ -18,45 +19,13 @@
 //#pragma comment(lib, "scrnsave.lib")
 //#pragma comment(lib, "ComCtl32.lib")
 
-#define PI       3.14159265358979323846   // pi
-#define TIMER   1
-
 extern HINSTANCE    hMainInstance;      // screen saver instance handle
 extern BOOL         fChildPreview;
 
 int width;
 int height;
 float koef;
-
-static SYSTEMTIME st;
-static bool g_start_flag = TRUE;
-
-static char digit_matrix[451] = "\
-111111000110001100011000110001100011000111111\
-000110000100001000010000100001000010000100001\
-111110000100001000011111110000100001000011111\
-111110000100001000010111100001000010000111111\
-100011000110001100011111100001000010000100001\
-111111000010000100001111100001000010000111111\
-111111000010000100001111110001100011000111111\
-111111000100001000010000100001000010000100001\
-111111000110001100011111110001100011000111111\
-111111000110001100011111100001000010000111111";
-
-static char dots_matrix[136] = "\
-001000100\
-000101000\
-001101100";
-
-static char m_deys_matrix[281] = "1111100110011001100110011111001100010001000100010001000111110001000111111000100011111111000100010111000100011111100110011001111100010001000111111000100011110001000111111111100010001111100110011111111110010001001001000100010011111001100111111001100111111111100110011111000100011111";
-static char w_deys_matrix[246] = "11101111010100111010010101001110111111010110101011010111101010110101011110111101001011100101010010111001011101111000101100011110001001110100101011110100101110010001001000100101110111101001010100101010010101001011101111000100100011110001011110111";
-
-
-
-static float space;
-static float step;
 static int cx;
-static int cy;
 
 //LONG WINAPI ScreenSaverProc(HWND, UINT, WPARAM, LPARAM);
 //BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
@@ -150,16 +119,16 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
 }
 
 
-void Game_Init(HDC hDC)
+void Screensaver_Init(HDC hDC)
 {
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glDisable(GL_DEPTH_TEST);
 
 
-    for (float iy=-cy; iy < cy; iy++)
+    for (int iy=-cy; iy < cy; iy++)
     {
-        for (float ix=-cx; ix < cx; ix++)
+        for (int ix=-cx; ix < cx; ix++)
         {
             float grey = rand()%10  * 0.01f ;
             glColor3f(grey, grey, grey);
@@ -169,7 +138,6 @@ void Game_Init(HDC hDC)
     }
     wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
 }
-
 
 float rand_range(int range_min, int range_max)
 {
@@ -245,7 +213,6 @@ void Render(HDC *hDC)
         TBall_Show(ball);
         Sleep(10);
     }
-
 }
 
 LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -267,7 +234,6 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
     {
     case WM_CREATE:
     {
-
         EnableOpenGL(hwnd, &hDC, &hRC);
         width = rc.right;
         height = rc.bottom;
@@ -291,7 +257,7 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 
         glScalef( 1 / koef, 1, 1);
 
-        Game_Init(hDC);
+        Screensaver_Init(hDC);
 
         uTimer = (UINT)SetTimer(hwnd, 1, 1, NULL);
     }
