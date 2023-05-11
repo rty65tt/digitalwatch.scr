@@ -2,7 +2,7 @@
 //#define PI       3.14159265358979323846   // pi
 #define TIMER           1
 #define XYSCALE         0.9
-#define CIRCLE_EDGES    16
+#define CIRCLE_EDGES    8
 
 HINSTANCE    hMainInstance;
 
@@ -19,6 +19,13 @@ static int m_num = 0;
 static float space = 2.0 / CIRCLES_NUM;
 static float step = space * 0.4f;
 static int cy = 1.0 / space;
+
+int x_offst = 0;
+int y_offst = 0;
+
+float grey = 0.1;
+
+BOOL keydown = FALSE;
 
 static char digit_matrix[451] = "\
 111111000110001100011000110001100011000111111\

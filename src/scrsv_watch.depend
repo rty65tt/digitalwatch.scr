@@ -71,7 +71,7 @@
 	<windows.h>
 	<mbstring.h>
 
-1683743889 source:f:\dev\projects\bloodigitalwatch.scr\src\main_win.cpp
+1683750679 source:f:\dev\projects\bloodigitalwatch.scr\src\main_win.cpp
 	<windows.h>
 	<Windowsx.h>
 	<winuser.h>
@@ -80,23 +80,26 @@
 	<CommCtrl.h>
 	"CommDlg.h"
 	"main.h"
-	<vector>
 	<iostream>
 
-1683134930 f:\dev\projects\bloodigitalwatch.scr\src\resource.h
+1683848590 f:\dev\projects\bloodigitalwatch.scr\src\resource.h
 
-1683154267 source:f:\dev\projects\bloodigitalwatch.scr\src\resources.rc
+1683848797 source:f:\dev\projects\bloodigitalwatch.scr\src\resources.rc
 	<windows.h>
 	"resource.h"
 
-1683746565 source:f:\dev\projects\bloodigitalwatch.scr\src\main_scr.cpp
+1683848034 source:f:\dev\projects\bloodigitalwatch.scr\src\main_scr.cpp
 	<Windows.h>
+	<Windowsx.h>
+	<winuser.h>
 	<gl\GL.h>
 	<gl\GLU.h>
 	<ScrnSave.h>
 	<CommCtrl.h>
 	<math.h>
 	"main.h"
+	"resource.h"
+	<iostream>
 
-1683746483 f:\dev\projects\bloodigitalwatch.scr\src\main.h
+1683847322 f:\dev\projects\bloodigitalwatch.scr\src\main.h
 

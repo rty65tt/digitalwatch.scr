@@ -10,7 +10,7 @@
 #include "CommDlg.h"
 #include "main.h"
 
-#include <vector>
+//#include <vector>
 #include <iostream>
 using namespace std;
 //#include "resource.h"
@@ -205,8 +205,6 @@ void draw_clock(HDC* hDC, int mon_num)
     g_start_flag = 0;
 }
 
-
-
 BOOL CALLBACK MyInfoEnumProc(
   HMONITOR hMonitor,	// handle to display monitor
   HDC hdcMonitor,   	// handle to monitor DC
@@ -220,7 +218,7 @@ BOOL CALLBACK MyInfoEnumProc(
 
     if(mons_screen[mon_count].flag_init) {
 
-        cout << "=== MonitorEnumProc START ===========" << endl;
+        cout << "=== MonitorEnumProc START ==== Mon # "<< mon_count << " / " << m_num << " ============\n";
 
         static MONITORINFO mi;
         mi.cbSize = sizeof(mi);
@@ -231,11 +229,11 @@ BOOL CALLBACK MyInfoEnumProc(
         int width = mi.rcMonitor.right - mi.rcMonitor.left;
         int height = mi.rcMonitor.bottom - mi.rcMonitor.top;
 
-        cout << "=== GetMonitorInfo(hMonitor, &mi); ====" << endl;
-        cout << "Monitor NUM = " << mon_count << endl;
-        cout << "Resolution = " << width << " x " << height << endl;
-        cout << "left = " << mi.rcMonitor.left << " top = " << mi.rcMonitor.top << endl;
-        cout << "right = " << mi.rcMonitor.right << " bottom = " << mi.rcMonitor.bottom << endl;
+//        cout << "=== GetMonitorInfo(hMonitor, &mi); ====" << endl;
+//        cout << "Monitor NUM = " << mon_count << endl;
+//        cout << "Resolution = " << width << " x " << height << endl;
+//        cout << "left = " << mi.rcMonitor.left << " top = " << mi.rcMonitor.top << endl;
+//        cout << "right = " << mi.rcMonitor.right << " bottom = " << mi.rcMonitor.bottom << endl;
 
         mons_screen[mon_count].koef = width > height ? (float)width / height: (float)height / width;
         mons_screen[mon_count].cx = cy * mons_screen[mon_count].koef;
@@ -287,7 +285,7 @@ BOOL CALLBACK MyInfoEnumProc(
         glScalef( 1 / mons_screen[mon_count].koef, 1, 1);
         Screensaver_Init(&hDC, mon_count);
         //DisableOpenGL(hwnd, hDC, hRC);        mons_screen[mon_count].flag_init = FALSE;
-    cout << "=== MonitorEnumProc END = Mon # " << mon_count << " ============\n" << endl;
+//    cout << "=== MonitorEnumProc END = Mon # " << mon_count << " ============\n" << endl;
     }
     hwnd = mons_screen[mon_count].hwnd;
     hDC = GetDC(hwnd);

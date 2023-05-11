@@ -103,15 +103,21 @@
 		<Unit filename="main_win.def">
 			<Option target="Debug[scr]" />
 			<Option target="Release[scr]" />
+			<Option target="Release" />
+			<Option target="Debug" />
 		</Unit>
 		<Unit filename="resource.h">
 			<Option target="Debug[scr]" />
 			<Option target="Release[scr]" />
+			<Option target="Release" />
+			<Option target="Debug" />
 		</Unit>
 		<Unit filename="resources.rc">
 			<Option compilerVar="WINDRES" />
 			<Option target="Debug[scr]" />
 			<Option target="Release[scr]" />
+			<Option target="Release" />
+			<Option target="Debug" />
 		</Unit>
 		<Unit filename="version.h" />
 		<Extensions>
