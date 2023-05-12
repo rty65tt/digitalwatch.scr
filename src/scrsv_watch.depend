@@ -82,24 +82,31 @@
 	"main.h"
 	<iostream>
 
-1683848590 f:\dev\projects\bloodigitalwatch.scr\src\resource.h
+1683893658 f:\dev\projects\bloodigitalwatch.scr\src\resource.h
 
-1683848797 source:f:\dev\projects\bloodigitalwatch.scr\src\resources.rc
+1683895533 source:f:\dev\projects\bloodigitalwatch.scr\src\resources.rc
+	"version.h"
+	"progdef.h"
 	<windows.h>
 	"resource.h"
 
-1683848034 source:f:\dev\projects\bloodigitalwatch.scr\src\main_scr.cpp
+1683907552 source:f:\dev\projects\bloodigitalwatch.scr\src\main_scr.cpp
 	<Windows.h>
 	<Windowsx.h>
 	<winuser.h>
 	<gl\GL.h>
 	<gl\GLU.h>
 	<ScrnSave.h>
+	<commdlg.h>
 	<CommCtrl.h>
 	<math.h>
 	"main.h"
 	"resource.h"
-	<iostream>
+	"version.h"
 
-1683847322 f:\dev\projects\bloodigitalwatch.scr\src\main.h
+1683905991 f:\dev\projects\bloodigitalwatch.scr\src\main.h
+
+1683907552 f:\dev\projects\bloodigitalwatch.scr\src\version.h
+
+1683891619 f:\dev\projects\bloodigitalwatch.scr\src\progdef.h
 

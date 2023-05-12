@@ -6,19 +6,19 @@
 #include <gl\GLU.h>
 // Screensaver Includes
 #include <ScrnSave.h>
+#include <commdlg.h>
 #include <CommCtrl.h>
 #include <math.h>
+
 #include "main.h"
-
 #include "resource.h"
+#include "version.h"
 
-#include <iostream>
-using namespace std;
+//#include <iostream>
+//using namespace std;
 
-//// OpenGL Libraries
 //#pragma comment(lib, "opengl32.lib")
 //#pragma comment(lib, "glu32.lib")
-//// Screensaver Libraries
 //#pragma comment(lib, "scrnsave.lib")
 //#pragma comment(lib, "ComCtl32.lib")
 
@@ -30,8 +30,8 @@ int height;
 float koef;
 static int cx;
 
-//LONG WINAPI ScreenSaverProc(HWND, UINT, WPARAM, LPARAM);
-//BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+LONG WINAPI ScreenSaverProc(HWND, UINT, WPARAM, LPARAM);
+BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 void Render(HDC*);
 void Update();
 void EnableOpenGL(HWND hwnd, HDC*, HGLRC*);
@@ -105,8 +105,10 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
     int bm_x = 0;
     int bm_y = 0;
     int counter;
+
     char *p_2char = &p_matrix[cel * row * m];
     char *p_bm = p_2char;
+
 
     if(!keydown && rand()%50 < 1) {
         glColor3f(grey, grey, grey);
@@ -119,8 +121,8 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
         {
             if (p_bm[counter] != 48)
             {
-                float ix = (x + bm_x - x_offst) * space;
-                float iy = (y + bm_y - y_offst) * -space;
+                float ix = (x + bm_x - xoffset) * space;
+                float iy = (y + bm_y - yoffset) * -space;
                 TBall_Init(&ball, ix, iy, step);
                 TBall_Show(ball);
             }
@@ -135,6 +137,28 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
         bm_x = 0;
         counter = 0;
     }
+}
+
+void clear_bg(HDC hDC)
+{
+    int ax = x_offset+21;
+    int ay = y_offset-10;
+
+    for (int iy=ay; iy < ay+22; iy++)
+    {
+        for (int ix=-ax; ix < -ax+43; ix++)
+        {
+            int r = rand()%20;
+            if(r <= 5 ) {
+                grey = (float)r  * 0.01f;
+                glColor3f(grey, grey, grey);
+                TBall_Init(&ball, (float)ix*space, (float)iy*space, step);
+                TBall_Show(ball);
+            }
+        }
+    }
+    wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
+    g_start_flag = 1;
 }
 
 void Screensaver_Init(HDC hDC)
@@ -162,23 +186,27 @@ void draw_clock(HDC *hDC)
 {
     glColor3f(0.05f, 0.05f, 0.05f);
 
-    keydown=TRUE;
-    if (st.wSecond % 2 == 0 || g_start_flag)
+    if (keydown || st.wSecond % 2 == 0 || g_start_flag)
     {
         draw_symbol(8, -19, -9, 5, 9, digit_matrix);
         draw_symbol(8, -13, -9, 5, 9, digit_matrix);
         draw_symbol(8, -5, -9, 5, 9,  digit_matrix);
         draw_symbol(8, 1, -9, 5, 9,   digit_matrix);
+
+        draw_symbol(st.wDayOfWeek, -13, 2, 7, 5,    w_deys_matrix);
+        draw_symbol(8, -4, 2, 4, 7,      m_deys_matrix);
+        draw_symbol(8, 2, 2, 4, 7,       m_deys_matrix);
     }
     draw_symbol(8, 9, -9, 5, 9,       digit_matrix);
     draw_symbol(8, 15, -9, 5, 9,      digit_matrix);
 
     draw_symbol(2, -7, -9, 1, 9,      dots_matrix);
     draw_symbol(2, 7, -9, 1, 9,       dots_matrix);
-    keydown=FALSE;
+
+    xoffset = x_offset;
+    yoffset = y_offset;
 
     glColor3f(0.17f, 0.15f, 0.15f);
-
 
     if (st.wSecond % 2 == 0 || g_start_flag)
     {
@@ -235,52 +263,12 @@ void Render(HDC *hDC)
     }
 }
 
-BOOL CALLBACK MyInfoEnumProc(
-  HMONITOR hMonitor,	// handle to display monitor
-  HDC hdcMonitor,   	// handle to monitor DC
-  LPRECT lprcMonitor,   // monitor intersection rectangle
-  LPARAM dwData     	// data
-)
-{
-        HWND hwnd;
-        cout << "=== MonitorEnumProc START ==== Mon # "<< mon_count << " / " << m_num << " ============\n";
-        static MONITORINFO mi;
-        mi.cbSize = sizeof(mi);
-        HWND desktop = GetDesktopWindow();
-        RECT s_size;
-        GetWindowRect(desktop, &s_size);
-        GetMonitorInfo(hMonitor, &mi);
-        int width = mi.rcMonitor.right - mi.rcMonitor.left;
-        int height = mi.rcMonitor.bottom - mi.rcMonitor.top;
-
-//        cout << "=== GetMonitorInfo(hMonitor, &mi); ====" << endl;
-        cout << "Resolution = " << width << " x " << height << endl;
-        cout << "rect " << mi.rcMonitor.left << ", " << mi.rcMonitor.top << ", " << mi.rcMonitor.right << ", " << mi.rcMonitor.bottom << endl;
-
-        mons_screen[mon_count].koef = width > height ? (float)width / height : (float)height / width;
-        mons_screen[mon_count].cx = cy * mons_screen[mon_count].koef;
-        mons_screen[mon_count].hwnd = hwnd;
-        mons_screen[mon_count].width = width;
-        mons_screen[mon_count].height = height;
-        mons_screen[mon_count].left = mi.rcMonitor.left;
-        mons_screen[mon_count].top = mi.rcMonitor.top;
-        mons_screen[mon_count].right = mi.rcMonitor.right;
-        mons_screen[mon_count].bottom = mi.rcMonitor.bottom;
-        cout << "= " << mons_screen[mon_count].width << ", " << mons_screen[mon_count].height << ", " << mons_screen[mon_count].left << ", " << mons_screen[mon_count].right << ", " << mons_screen[mon_count].top << ", " << mons_screen[mon_count].bottom << endl;
-
-//    cout << "=== MonitorEnumProc END = Mon # " << mon_count << " ============\n" << endl;
-
-    //mon_count = mon_count <= m_num ? mon_count+1 : 0;
-    mon_count++;
-    return TRUE;
-}
-
-
 LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     HDC hDC;
     HGLRC hRC;
     HMONITOR hmon = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+    //HMONITOR hmon = MonitorFromWindow(hwnd, MONITOR_DEFAULTTOPRIMARY);
     static MONITORINFO mi;
     mi.cbSize = sizeof(mi);
     GetMonitorInfo(hmon, &mi);
@@ -300,29 +288,26 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
     {
         case WM_CREATE:
         {
-            EnableOpenGL(hwnd, &hDC, &hRC);
-            width = rc.right;
-            height = rc.bottom;
+//            width = rc.right;
+//            height = rc.bottom;
 //            EnumDisplayMonitors(NULL, NULL, MyInfoEnumProc, 0);
-            //SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, mons_screen[0].width, mons_screen[0].height, SWP_SHOWWINDOW);
+            width = mi.rcMonitor.right;
+            height = mi.rcMonitor.bottom;
+            SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, width, height, SWP_SHOWWINDOW);
+            EnableOpenGL(hwnd, &hDC, &hRC);
 
             koef = width > height ? (float)width / height: (float)height / width;
-
-//            cout << "RECT " << rc.right << " x " << rc.bottom << endl;
-//            cout << "RECT " << mi.rcMonitor.right << " x " << mi.rcMonitor.bottom << endl;
-//            cout << "RECT " << width << " x " << height << endl;
 
             cx = cy * koef;
             glLoadIdentity();
             glOrtho(-XYSCALE, XYSCALE, -XYSCALE, XYSCALE, -1, 1);
-            //glOrtho(-width/2, width/2, -height/2, height/2, -1, 1);
-            //glScalef( width / 2 / koef, height/2, 1);
             glScalef(1/koef, 1, 1);
             glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glDisable(GL_DEPTH_TEST);
 
             Screensaver_Init(hDC);
+
             uTimer = (UINT)SetTimer(hwnd, 1, 1, NULL);
         }
 
@@ -372,11 +357,11 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
         {
             //Screensaver_Init(hDC);
             switch (wParam) {
-                case VK_UP:     {y_offst++;keydown=TRUE;}break;
-                case VK_DOWN:   {y_offst--;keydown=TRUE;}break;
-                case VK_LEFT:   {x_offst++;keydown=TRUE;}break;
-                case VK_RIGHT:  {x_offst--;keydown=TRUE;}break;
-                case VK_BACK:  {Screensaver_Init(hDC);}break;
+                case VK_UP:     {y_offset++;keydown=TRUE;}break;
+                case VK_DOWN:   {y_offset--;keydown=TRUE;}break;
+                case VK_LEFT:   {x_offset++;keydown=TRUE;}break;
+                case VK_RIGHT:  {x_offset--;keydown=TRUE;}break;
+                case VK_BACK:   {clear_bg(hDC);}break;
                 default: {PostQuitMessage(0);}
             }
         }
@@ -438,29 +423,43 @@ void DisableOpenGL (HWND hwnd, HDC hDC, HGLRC hRC)
 
 BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    static HWND hCheckbox, previewer;
-    static COLORREF selectcolor;
     static RECT         rc;
 
     GetClientRect(hDlg, &rc);
 
-    switch (message) {
-        case WM_COMMAND:
+    switch (message)
+    {
+    case WM_INITDIALOG:
+
+        SetDlgItemTextA(hDlg, IDC_YEAR , AutoVersion::YEAR);
+        SetDlgItemTextA(hDlg, IDC_VERION , AutoVersion::FULLVERSION_STRING);
+        break;
+
+//    case WM_CTLCOLORBTN:
+
+//        if ((HWND)lParam == GetDlgItem(hDlg, IDC_BGCOLORBTN))
+//            selectcolor = bg_color;
+//        SetTextColor((HDC)wParam, selectcolor);
+//        return (LRESULT)CreateSolidBrush(selectcolor);
+
+    case WM_COMMAND:
 
         switch (LOWORD(wParam))
         {
         case IDC_GOGITBTN:
-            ShellExecute(hDlg, "Open", "https://github.com/rty65tt/stClock.scr", (LPCTSTR)NULL, (LPCTSTR)NULL, SW_SHOW);
+            ShellExecute(hDlg, "Open", "GITHUBURL", (LPCTSTR)NULL, (LPCTSTR)NULL, SW_SHOW);
             break;
         case IDOK:
             EndDialog(hDlg, LOWORD(wParam));
             break;
+
         case IDCANCEL:
             EndDialog(hDlg, LOWORD(wParam));
             break;
         }
-    return TRUE;
+        return TRUE;
     }
+    return (FALSE);
 }
 
 

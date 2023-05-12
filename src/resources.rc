@@ -1,5 +1,7 @@
 // Microsoft Visual C++ generated resource script.
 //
+#include "version.h"
+#include "progdef.h"
 #include <windows.h>
 #include "resource.h"
 
@@ -50,17 +52,20 @@ END
 // Dialog
 //
 
-DLG_SCRNSAVECONFIGURE DIALOGEX 50, 50, 300, 160
+DLG_SCRNSAVECONFIGURE DIALOGEX 50, 50, 299, 157
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_STATICEDGE
 CAPTION "Options"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "Ok",IDOK,185,132,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,242,132,50,14
-    CTEXT           "bloodigitalwatch ver. 0.2 | 2023",IDC_STATIC,119,88,204,11,0,WS_EX_STATICEDGE
-    CTEXT           "open source",IDC_STATIC,119,104,51,11,SS_SUNKEN
-    PUSHBUTTON      "GITHUB",IDC_GOGITBTN,176,102,34,14,BS_FLAT
+    DEFPUSHBUTTON   "Ok",           IDOK,           185,132,50,14
+    PUSHBUTTON      "Cancel",       IDCANCEL,       242,132,50,14
+    CTEXT           PROGNAME1,      IDC_STATIC,     185,28,104,11,0,WS_EX_STATICEDGE
+    CTEXT           "ver",          IDC_STATIC,     185,74,51,11,0,WS_EX_STATICEDGE
+    CTEXT           "0.0",          IDC_VERION,     242,74,51,11,SS_SUNKEN|SS_LEFT
+    CTEXT           "1970",         IDC_YEAR,       185,88,51,11,0,WS_EX_STATICEDGE
+    CTEXT           "open source",  IDC_STATIC,     185,104,51,11,SS_SUNKEN
+    PUSHBUTTON      "GITHUB",       IDC_GOGITBTN,   242,102,34,14,BS_FLAT
 END
 
 
