@@ -2,8 +2,11 @@
 # Bloody Digital Watch / Clock Screensaver for MS Windows OpenGL
 
 
-## Screenshot
-![screensot1](screenshot1.png  "Screenshot1")
+## Screenshot ver0.4
+![screensot1](screenshot_ver0.4.png  "Screenshot ver0.4")
+
+## Screenshot ver0.3
+![screensot1](screenshot_ver0.3.png  "Screenshot ver0.3")
 
 
 ## Build

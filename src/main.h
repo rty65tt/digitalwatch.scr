@@ -2,7 +2,7 @@
 //#define PI       3.14159265358979323846   // pi
 #define TIMER           1
 #define XYSCALE         0.9
-#define CIRCLE_EDGES    8
+#define CIRCLE_EDGES    16
 
 HINSTANCE    hMainInstance;
 
