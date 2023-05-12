@@ -30,6 +30,8 @@ int height;
 float koef;
 static int cx;
 
+POINTFLOAT verticles[CIRCLE_EDGES];
+
 LONG WINAPI ScreenSaverProc(HWND, UINT, WPARAM, LPARAM);
 BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 void Render(HDC*);
@@ -37,19 +39,23 @@ void Update();
 void EnableOpenGL(HWND hwnd, HDC*, HGLRC*);
 void DisableOpenGL(HWND, HDC, HGLRC);
 
-void drawCircleFill(int cnt)
+
+void setVertex()
 {
     float x, y;
-    float a = M_PI * 2.0 / cnt;
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex2f(0, 0);
-    for (int i = 0; i <= cnt; i++)
+    float a = M_PI * 2.0 / CIRCLE_EDGES;
+    for (int i = 0; i <= CIRCLE_EDGES; i++)
     {
         x = sin(a * i);
         y = cos(a * i);
-        glVertex2f(x, y);
+        verticles[i] = {x,y};
     }
-    glEnd();
+}
+void drawCircleFill(int cnt)
+{
+    glVertexPointer(2, GL_FLOAT, 0, &verticles);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, CIRCLE_EDGES);
 }
 
 void drawSquareFill()
@@ -83,11 +89,11 @@ typedef struct
 
 TBall ball;
 
-void TBall_Init(TBall *obj, float x1, float y1, float r1)
+void TBall_Init(TBall *obj, float x1, float y1)
 {
-    obj->x = x1+r1;
-    obj->y = y1+r1;
-    obj->r = r1;
+    obj->x = x1+step;
+    obj->y = y1+step;
+    obj->r = step;
 }
 
 void TBall_Show(TBall obj)
@@ -100,6 +106,12 @@ void TBall_Show(TBall obj)
     glPopMatrix();
 }
 
+float rand_range(int range_min, int range_max)
+{
+    int r = ((double)rand() / RAND_MAX) * (range_max - range_min) + range_min;
+    return r;
+}
+
 void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
 {
     int bm_x = 0;
@@ -109,9 +121,13 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
     char *p_2char = &p_matrix[cel * row * m];
     char *p_bm = p_2char;
 
-
-    if(!keydown && rand()%50 < 1) {
-        glColor3f(grey, grey, grey);
+    if(!keydown) {
+        int r = rand()%1027;
+        if(r < 26 && m != 8) {
+           grey = r * 0.01f;
+           //grey = 0.9;
+           glColor3f(grey, grey, grey);
+        }
     }
 
     while (1)
@@ -123,7 +139,7 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
             {
                 float ix = (x + bm_x - xoffset) * space;
                 float iy = (y + bm_y - yoffset) * -space;
-                TBall_Init(&ball, ix, iy, step);
+                TBall_Init(&ball, ix, iy);
                 TBall_Show(ball);
             }
             bm_x += 1;
@@ -152,7 +168,7 @@ void clear_bg(HDC hDC)
             if(r <= 5 ) {
                 grey = (float)r  * 0.01f;
                 glColor3f(grey, grey, grey);
-                TBall_Init(&ball, (float)ix*space, (float)iy*space, step);
+                TBall_Init(&ball, ix*space, iy*space);
                 TBall_Show(ball);
             }
         }
@@ -169,18 +185,13 @@ void Screensaver_Init(HDC hDC)
         {
             grey = rand()%10  * 0.01f ;
             glColor3f(grey, grey, grey);
-            TBall_Init(&ball, (float)ix*space, (float)iy*space, step);
+            TBall_Init(&ball, ix*space, iy*space);
             TBall_Show(ball);
         }
     }
     wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
 }
 
-float rand_range(int range_min, int range_max)
-{
-    int r = ((double)rand() / RAND_MAX) * (range_max - range_min) + range_min;
-    return r;
-}
 
 void draw_clock(HDC *hDC)
 {
@@ -188,6 +199,7 @@ void draw_clock(HDC *hDC)
 
     if (keydown || st.wSecond % 2 == 0 || g_start_flag)
     {
+        keydown = TRUE;
         draw_symbol(8, -19, -9, 5, 9, digit_matrix);
         draw_symbol(8, -13, -9, 5, 9, digit_matrix);
         draw_symbol(8, -5, -9, 5, 9,  digit_matrix);
@@ -196,6 +208,7 @@ void draw_clock(HDC *hDC)
         draw_symbol(st.wDayOfWeek, -13, 2, 7, 5,    w_deys_matrix);
         draw_symbol(8, -4, 2, 4, 7,      m_deys_matrix);
         draw_symbol(8, 2, 2, 4, 7,       m_deys_matrix);
+        keydown = FALSE;
     }
     draw_symbol(8, 9, -9, 5, 9,       digit_matrix);
     draw_symbol(8, 15, -9, 5, 9,      digit_matrix);
@@ -229,27 +242,31 @@ void draw_clock(HDC *hDC)
     draw_symbol(dc, -7, -9, 1, 9,   dots_matrix);
     draw_symbol(dc, 7, -9, 1, 9,    dots_matrix);
 
-    wglSwapLayerBuffers(*hDC, WGL_SWAP_MAIN_PLANE);
 }
 
 void Render(HDC *hDC)
 {
     /* OpenGL animation code goes here */
-
-    float rc = rand()%30 * 0.01;
-    float gc = rand()%20 * 0.01;
-    glColor3f(rc, gc, 0.0f);
-    float ix = rand_range(-cx, cx) * space;
-    float iy = rand_range(-cy, cy) * space;
-    TBall_Init(&ball, (float)ix, (float)iy, step);
-    TBall_Show(ball);
-    Sleep(10);
+    for(int gw = 0; gw < 5; gw++)
+    {
+        float rc = rand()%30 * 0.01;
+        float gc = rand()%20 * 0.01;
+        glColor3f(rc, gc, 0.0f);
+        float ix = rand_range(-cx, cx) * space;
+        float iy = rand_range(-cy, cy) * space;
+        TBall_Init(&ball, (float)ix, (float)iy);
+        TBall_Show(ball);
+    }
+    //Sleep(10);
 
     GetLocalTime(&st);
-
     draw_clock(hDC);
+//    if(p_second != st.wSecond){
+//        p_second = st.wSecond;
+//    }
+    wglSwapLayerBuffers(*hDC, WGL_SWAP_MAIN_PLANE);
+    Sleep(160);
 
-    Sleep(10);
 
     grey = rand()%10 * 0.01f;
     glColor3f(grey, grey, grey);
@@ -257,9 +274,9 @@ void Render(HDC *hDC)
     {
         float ix = rand_range(-cx, cx) * space;
         float iy = rand_range(-cy, cy) * space;
-        TBall_Init(&ball, (float)ix, (float)iy, step);
+        TBall_Init(&ball, ix, iy);
         TBall_Show(ball);
-        Sleep(10);
+        //Sleep(10);
     }
 }
 
@@ -305,6 +322,7 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
             glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glDisable(GL_DEPTH_TEST);
+            setVertex();
 
             Screensaver_Init(hDC);
 
@@ -370,6 +388,7 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
         case WM_KEYUP:
         {
             keydown=FALSE;
+            clear_bg(hDC);
         }
         break;
 

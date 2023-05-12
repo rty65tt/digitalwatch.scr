@@ -10,7 +10,7 @@
 		<Build>
 			<Target title="Debug">
 				<Option platforms="Windows;" />
-				<Option output="bin/Debug/scrsv_watch.scr" prefix_auto="1" extension_auto="0" />
+				<Option output="bin/Debug/bloodigitalwatch.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gnu_gcc_compiler_630" />
@@ -21,7 +21,7 @@
 			</Target>
 			<Target title="Release">
 				<Option platforms="Windows;" />
-				<Option output="bin/Release/scrsv_watch.scr" prefix_auto="1" extension_auto="0" />
+				<Option output="bin/Release/bloodigitalwatch.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gnu_gcc_compiler_630" />
@@ -35,7 +35,7 @@
 			</Target>
 			<Target title="Debug[scr]">
 				<Option platforms="Windows;" />
-				<Option output="bin/Debug/scrsv_watch[scr].scr" prefix_auto="1" extension_auto="0" />
+				<Option output="bin/Debug/bloodigitalwatch[scr].scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gnu_gcc_compiler_630" />
@@ -46,7 +46,7 @@
 			</Target>
 			<Target title="Release[scr]">
 				<Option platforms="Windows;" />
-				<Option output="bin/Release/scrsv_watch[scr].scr" prefix_auto="1" extension_auto="0" />
+				<Option output="bin/Release/bloodigitalwatch[scr].scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gnu_gcc_compiler_630" />
@@ -60,7 +60,7 @@
 			</Target>
 			<Target title="Release[scr]DLG">
 				<Option platforms="Windows;" />
-				<Option output="bin/Release/scrsv_watch[scr].scr" prefix_auto="1" extension_auto="0" />
+				<Option output="bin/Release/bloodigitalwatch[scr].scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gnu_gcc_compiler_630" />
