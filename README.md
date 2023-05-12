@@ -3,7 +3,7 @@
 
 
 ## Screenshot ver0.4
-![screensot1](screenshot_ver0.4.png  "Screenshot ver0.4")
+![screensot1](screenshot_ver0.4.gif  "Screenshot ver0.4")
 
 ## Screenshot ver0.3
 ![screensot1](screenshot_ver0.3.png  "Screenshot ver0.3")

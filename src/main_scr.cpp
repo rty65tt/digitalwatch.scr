@@ -11,6 +11,7 @@
 #include <math.h>
 
 #include "main.h"
+#include "progdef.h"
 #include "resource.h"
 #include "version.h"
 
@@ -125,7 +126,6 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
         int r = rand()%1027;
         if(r < 26 && m != 8) {
            grey = r * 0.01f;
-           //grey = 0.9;
            glColor3f(grey, grey, grey);
         }
     }
@@ -164,7 +164,7 @@ void clear_bg(HDC hDC)
     {
         for (int ix=-ax; ix < -ax+43; ix++)
         {
-            int r = rand()%20;
+            int r = rand()%200;
             if(r <= 5 ) {
                 grey = (float)r  * 0.01f;
                 glColor3f(grey, grey, grey);
@@ -247,10 +247,10 @@ void draw_clock(HDC *hDC)
 void Render(HDC *hDC)
 {
     /* OpenGL animation code goes here */
-    for(int gw = 0; gw < 5; gw++)
+    for(int gw = 0; gw < 10; gw++)
     {
-        float rc = rand()%30 * 0.01;
-        float gc = rand()%20 * 0.01;
+        float rc = rand()%20 * 0.01;
+        float gc = rand()%10 * 0.01;
         glColor3f(rc, gc, 0.0f);
         float ix = rand_range(-cx, cx) * space;
         float iy = rand_range(-cy, cy) * space;
@@ -262,6 +262,7 @@ void Render(HDC *hDC)
     GetLocalTime(&st);
     draw_clock(hDC);
 //    if(p_second != st.wSecond){
+//        clear_bg(*hDC);
 //        p_second = st.wSecond;
 //    }
     wglSwapLayerBuffers(*hDC, WGL_SWAP_MAIN_PLANE);
@@ -270,7 +271,7 @@ void Render(HDC *hDC)
 
     grey = rand()%10 * 0.01f;
     glColor3f(grey, grey, grey);
-    for(int gw = 0; gw < 10; gw++)
+    for(int gw = 0; gw < 5; gw++)
     {
         float ix = rand_range(-cx, cx) * space;
         float iy = rand_range(-cy, cy) * space;
@@ -466,7 +467,7 @@ BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, L
         switch (LOWORD(wParam))
         {
         case IDC_GOGITBTN:
-            ShellExecute(hDlg, "Open", "GITHUBURL", (LPCTSTR)NULL, (LPCTSTR)NULL, SW_SHOW);
+            ShellExecute(hDlg, "Open", GITHUBURL, (LPCTSTR)NULL, (LPCTSTR)NULL, SW_SHOW);
             break;
         case IDOK:
             EndDialog(hDlg, LOWORD(wParam));

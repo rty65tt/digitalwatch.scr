@@ -2,37 +2,37 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release[scr]" />
-	<File name="resource.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1351" topLine="25" />
+			<Cursor1 position="458" topLine="13" />
 		</Cursor>
 	</File>
 	<File name="main_scr.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2179" topLine="270" />
+			<Cursor1 position="6639" topLine="250" />
 		</Cursor>
 	</File>
-	<File name="version.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="resource.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="460" topLine="0" />
+			<Cursor1 position="147" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="main.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="resources.rc" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="332" topLine="3" />
+			<Cursor1 position="73" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="main_win.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9897" topLine="294" />
+			<Cursor1 position="222" topLine="263" />
 		</Cursor>
 		<Folding>
 			<Collapse line="37" />
 		</Folding>
 	</File>
-	<File name="resources.rc" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="version.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1734" topLine="96" />
+			<Cursor1 position="488" topLine="6" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
