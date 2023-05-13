@@ -381,6 +381,7 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
                 case VK_LEFT:   {x_offset++;keydown=TRUE;}break;
                 case VK_RIGHT:  {x_offset--;keydown=TRUE;}break;
                 case VK_BACK:   {clear_bg(hDC);}break;
+                case VK_SCROLL: break;
                 default: {PostQuitMessage(0);}
             }
         }

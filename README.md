@@ -1,5 +1,5 @@
 
-# Bloody Digital Watch / Clock Screensaver for MS Windows OpenGL
+# Digital Watch / Clock Screensaver for MS Windows OpenGL
 
 
 ## Screenshot ver0.4
