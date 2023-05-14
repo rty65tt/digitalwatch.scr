@@ -5,13 +5,13 @@
 #include <gl\GL.h>
 #include <gl\GLU.h>
 // Screensaver Includes
-#include <ScrnSave.h>
+#include <scrnsave.h>
 #include <commdlg.h>
 #include <CommCtrl.h>
 #include <math.h>
 
 #include "main.h"
-#include "progdef.h"
+//#include "progdef.h"
 #include "resource.h"
 #include "version.h"
 
@@ -31,87 +31,13 @@ int height;
 float koef;
 static int cx;
 
-POINTFLOAT verticles[CIRCLE_EDGES];
-
-LONG WINAPI ScreenSaverProc(HWND, UINT, WPARAM, LPARAM);
-BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 void Render(HDC*);
 void Update();
 void EnableOpenGL(HWND hwnd, HDC*, HGLRC*);
 void DisableOpenGL(HWND, HDC, HGLRC);
 
-
-void setVertex()
-{
-    float x, y;
-    float a = M_PI * 2.0 / CIRCLE_EDGES;
-    for (int i = 0; i <= CIRCLE_EDGES; i++)
-    {
-        x = sin(a * i);
-        y = cos(a * i);
-        verticles[i] = {x,y};
-    }
-}
-void drawCircleFill(int cnt)
-{
-    glVertexPointer(2, GL_FLOAT, 0, &verticles);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, CIRCLE_EDGES);
-}
-
-void drawSquareFill()
-{
-    float x=1;
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex2f(-x, x);
-    glVertex2f(x, x);
-    glVertex2f(x, -x);
-    glVertex2f(-x, -x);
-    glEnd();
-}
-
-typedef struct
-{
-    BOOL flag_init = TRUE;
-    HWND hwnd;
-    int left, right, top, bottom;
-    int width, height;
-    float koef;
-    int cx;
-} TScreen;
-
-TScreen mons_screen[100];
-
-typedef struct
-{
-    float x,y;
-    float r;
-} TBall;
-
+TScreen mntrs[10];
 TBall ball;
-
-void TBall_Init(TBall *obj, float x1, float y1)
-{
-    obj->x = x1+step;
-    obj->y = y1+step;
-    obj->r = step;
-}
-
-void TBall_Show(TBall obj)
-{
-    glPushMatrix();
-    glTranslatef(obj.x, obj.y, 0);
-    glScalef(obj.r, obj.r, 1);
-    //drawSquareFill();
-    drawCircleFill(CIRCLE_EDGES);
-    glPopMatrix();
-}
-
-float rand_range(int range_min, int range_max)
-{
-    int r = ((double)rand() / RAND_MAX) * (range_max - range_min) + range_min;
-    return r;
-}
 
 void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
 {
@@ -140,7 +66,7 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, char *p_matrix)
                 float ix = (x + bm_x - xoffset) * space;
                 float iy = (y + bm_y - yoffset) * -space;
                 TBall_Init(&ball, ix, iy);
-                TBall_Show(ball);
+                TBall_Draw(ball);
             }
             bm_x += 1;
             ++counter;
@@ -169,7 +95,7 @@ void clear_bg(HDC hDC)
                 grey = (float)r  * 0.01f;
                 glColor3f(grey, grey, grey);
                 TBall_Init(&ball, ix*space, iy*space);
-                TBall_Show(ball);
+                TBall_Draw(ball);
             }
         }
     }
@@ -177,7 +103,7 @@ void clear_bg(HDC hDC)
     g_start_flag = 1;
 }
 
-void Screensaver_Init(HDC hDC)
+void ScreenSaverInit(HDC hDC)
 {
     for (int iy=-cy; iy < cy; iy++)
     {
@@ -186,13 +112,11 @@ void Screensaver_Init(HDC hDC)
             grey = rand()%10  * 0.01f ;
             glColor3f(grey, grey, grey);
             TBall_Init(&ball, ix*space, iy*space);
-            TBall_Show(ball);
+            TBall_Draw(ball);
         }
     }
     wglSwapLayerBuffers(hDC, WGL_SWAP_MAIN_PLANE);
 }
-
-
 void draw_clock(HDC *hDC)
 {
     glColor3f(0.05f, 0.05f, 0.05f);
@@ -255,16 +179,16 @@ void Render(HDC *hDC)
         float ix = rand_range(-cx, cx) * space;
         float iy = rand_range(-cy, cy) * space;
         TBall_Init(&ball, (float)ix, (float)iy);
-        TBall_Show(ball);
+        TBall_Draw(ball);
     }
     //Sleep(10);
 
     GetLocalTime(&st);
     draw_clock(hDC);
-//    if(p_second != st.wSecond){
-//        clear_bg(*hDC);
-//        p_second = st.wSecond;
-//    }
+    if(p_second != st.wSecond){
+        clear_bg(*hDC);
+        p_second = st.wSecond;
+    }
     wglSwapLayerBuffers(*hDC, WGL_SWAP_MAIN_PLANE);
     Sleep(160);
 
@@ -276,7 +200,7 @@ void Render(HDC *hDC)
         float ix = rand_range(-cx, cx) * space;
         float iy = rand_range(-cy, cy) * space;
         TBall_Init(&ball, ix, iy);
-        TBall_Show(ball);
+        TBall_Draw(ball);
         //Sleep(10);
     }
 }
@@ -285,8 +209,8 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 {
     HDC hDC;
     HGLRC hRC;
-    HMONITOR hmon = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
-    //HMONITOR hmon = MonitorFromWindow(hwnd, MONITOR_DEFAULTTOPRIMARY);
+    //HMONITOR hmon = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+    HMONITOR hmon = MonitorFromWindow(hwnd, MONITOR_DEFAULTTOPRIMARY);
     static MONITORINFO mi;
     mi.cbSize = sizeof(mi);
     GetMonitorInfo(hmon, &mi);
@@ -296,25 +220,24 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 
     m_num = GetSystemMetrics(SM_CMONITORS);
 
-    //TScreen mons[m_num];
-    //mons_screen = mons;
-
-
     static UINT uTimer = 0;
 
     switch (uMsg)
     {
         case WM_CREATE:
         {
-//            width = rc.right;
-//            height = rc.bottom;
-//            EnumDisplayMonitors(NULL, NULL, MyInfoEnumProc, 0);
-            width = mi.rcMonitor.right;
-            height = mi.rcMonitor.bottom;
-            SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, width, height, SWP_SHOWWINDOW);
+            if (MULTIMONITOR){
+                width   = rc.right;
+                height  = rc.bottom;
+            } else {
+                width   = mi.rcMonitor.right;
+                height  = mi.rcMonitor.bottom;
+                SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, width, height, SWP_SHOWWINDOW);
+            }
+
             EnableOpenGL(hwnd, &hDC, &hRC);
 
-            koef = width > height ? (float)width / height: (float)height / width;
+            koef = width > height ? (float)width / height : (float)height / width;
 
             cx = cy * koef;
             glLoadIdentity();
@@ -325,7 +248,7 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
             glDisable(GL_DEPTH_TEST);
             setVertex();
 
-            Screensaver_Init(hDC);
+            ScreenSaverInit(hDC);
 
             uTimer = (UINT)SetTimer(hwnd, 1, 1, NULL);
         }
@@ -361,11 +284,13 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
         case WM_MOUSEMOVE:
         {
             int x = GET_X_LPARAM(lParam);
+            int y = GET_Y_LPARAM(lParam);
             if (!mouse_x_init)
             {
                 mouse_x_init = x;
+                mouse_y_init = y;
             }
-            if (mouse_x_init != x)
+            if (mouse_x_init != x || mouse_y_init != y)
             {
                 PostQuitMessage(0);
             }
@@ -455,13 +380,6 @@ BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, L
         SetDlgItemTextA(hDlg, IDC_YEAR , AutoVersion::YEAR);
         SetDlgItemTextA(hDlg, IDC_VERION , AutoVersion::FULLVERSION_STRING);
         break;
-
-//    case WM_CTLCOLORBTN:
-
-//        if ((HWND)lParam == GetDlgItem(hDlg, IDC_BGCOLORBTN))
-//            selectcolor = bg_color;
-//        SetTextColor((HDC)wParam, selectcolor);
-//        return (LRESULT)CreateSolidBrush(selectcolor);
 
     case WM_COMMAND:
 

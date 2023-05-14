@@ -71,15 +71,19 @@
 	<windows.h>
 	<mbstring.h>
 
-1683750679 source:f:\dev\projects\bloodigitalwatch.scr\src\main_win.cpp
+1683998768 source:f:\dev\projects\bloodigitalwatch.scr\src\main_win.cpp
 	<windows.h>
 	<Windowsx.h>
 	<winuser.h>
 	<gl/gl.h>
+	<gl\GLU.h>
 	<math.h>
 	<CommCtrl.h>
 	"CommDlg.h"
 	"main.h"
+	"progdef.h"
+	"resource.h"
+	"version.h"
 	<iostream>
 
 1683893658 f:\dev\projects\bloodigitalwatch.scr\src\resource.h
@@ -90,7 +94,7 @@
 	<windows.h>
 	"resource.h"
 
-1683982090 source:f:\dev\projects\bloodigitalwatch.scr\src\main_scr.cpp
+1683985682 source:f:\dev\projects\bloodigitalwatch.scr\src\main_scr.cpp
 	<Windows.h>
 	<Windowsx.h>
 	<winuser.h>
@@ -105,9 +109,928 @@
 	"resource.h"
 	"version.h"
 
-1683929538 f:\dev\projects\bloodigitalwatch.scr\src\main.h
+1683999436 f:\dev\projects\bloodigitalwatch.scr\src\main.h
 
-1683982090 f:\dev\projects\bloodigitalwatch.scr\src\version.h
+1683999436 f:\dev\projects\bloodigitalwatch.scr\src\version.h
 
 1683891619 f:\dev\projects\bloodigitalwatch.scr\src\progdef.h
+
+1684077853 source:f:\dev\projects\digitalwatch.scr\src\main_win.cpp
+	<windows.h>
+	<Windowsx.h>
+	<winuser.h>
+	<gl/gl.h>
+	<math.h>
+	"main.h"
+	"resource.h"
+	"version.h"
+	<iostream>
+
+1684072574 f:\dev\projects\digitalwatch.scr\src\main.h
+
+1684002359 f:\dev\projects\digitalwatch.scr\src\progdef.h
+
+1683893658 f:\dev\projects\digitalwatch.scr\src\resource.h
+
+1684077853 f:\dev\projects\digitalwatch.scr\src\version.h
+
+1683895533 source:f:\dev\projects\digitalwatch.scr\src\resources.rc
+	"version.h"
+	"progdef.h"
+	<windows.h>
+	"resource.h"
+
+1684069479 source:f:\dev\projects\digitalwatch.scr\src\main_scr.cpp
+	<Windows.h>
+	<Windowsx.h>
+	<winuser.h>
+	<gl\GL.h>
+	<gl\GLU.h>
+	<scrnsave.h>
+	<commdlg.h>
+	<CommCtrl.h>
+	<math.h>
+	"main.h"
+	"resource.h"
+	"version.h"
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\windows.h
+	<_mingw.h>
+	<sdkddkver.h>
+	<winresrc.h>
+	<excpt.h>
+	<stdarg.h>
+	<windef.h>
+	<winbase.h>
+	<wingdi.h>
+	<winuser.h>
+	<winnls.h>
+	<wincon.h>
+	<winver.h>
+	<winreg.h>
+	<winnetwk.h>
+	<virtdisk.h>
+	<cderr.h>
+	<dde.h>
+	<ddeml.h>
+	<dlgs.h>
+	<lzexpand.h>
+	<mmsystem.h>
+	<nb30.h>
+	<rpc.h>
+	<shellapi.h>
+	<winperf.h>
+	<winsock.h>
+	<wincrypt.h>
+	<winefs.h>
+	<winscard.h>
+	<winspool.h>
+	<ole.h>
+	<ole2.h>
+	<commdlg.h>
+	<stralign.h>
+	<ole2.h>
+	<winsvc.h>
+	<mcx.h>
+	<imm.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\sdkddkver.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winresrc.h
+	<winuser.rh>
+	<commctrl.rh>
+	<dde.rh>
+	<winnt.rh>
+	<dlgs.h>
+	<winver.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winuser.rh
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\commctrl.rh
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\dde.rh
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winnt.rh
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\dlgs.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winver.h
+	<_mingw.h>
+	<_mingw_unicode.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\windef.h
+	<minwindef.h>
+	<winnt.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\minwindef.h
+	<_mingw.h>
+	<winapifamily.h>
+	<specstrings.h>
+	<winnt.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winapifamily.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\specstrings.h
+	<sal.h>
+	<driverspecs.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\sal.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winnt.h
+	<_mingw_unicode.h>
+	<_mingw.h>
+	<ctype.h>
+	<excpt.h>
+	<winapifamily.h>
+	<apiset.h>
+	<specstrings.h>
+	<psdk_inc/intrin-impl.h>
+	<sdkddkver.h>
+	<basetsd.h>
+	<guiddef.h>
+	<x86intrin.h>
+	<emmintrin.h>
+	<emmintrin.h>
+	<pshpack4.h>
+	<poppack.h>
+	"pshpack4.h"
+	"pshpack2.h"
+	"poppack.h"
+	"pshpack2.h"
+	<pshpack2.h>
+	<poppack.h>
+	"poppack.h"
+	"pshpack8.h"
+	"poppack.h"
+	"poppack.h"
+	<string.h>
+	<pshpack8.h>
+	<poppack.h>
+	<ktmtypes.h>
+	"pshpack4.h"
+	"poppack.h"
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\apiset.h
+	<_mingw.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\psdk_inc\intrin-impl.h
+	<intrin.h>
+	<psdk_inc/intrin-impl.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\basetsd.h
+	<_mingw.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\guiddef.h
+	<_mingw.h>
+	<string.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\pshpack4.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\poppack.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\pshpack2.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\pshpack8.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\ktmtypes.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winbase.h
+	<_mingw_unicode.h>
+	<apisetcconv.h>
+	<winapifamily.h>
+	<minwinbase.h>
+	<bemapiset.h>
+	<debugapi.h>
+	<errhandlingapi.h>
+	<fibersapi.h>
+	<fileapi.h>
+	<handleapi.h>
+	<heapapi.h>
+	<ioapiset.h>
+	<interlockedapi.h>
+	<jobapi.h>
+	<libloaderapi.h>
+	<memoryapi.h>
+	<namedpipeapi.h>
+	<namespaceapi.h>
+	<processenv.h>
+	<processthreadsapi.h>
+	<processtopologyapi.h>
+	<profileapi.h>
+	<realtimeapiset.h>
+	<securityappcontainer.h>
+	<securitybaseapi.h>
+	<synchapi.h>
+	<sysinfoapi.h>
+	<systemtopologyapi.h>
+	<threadpoolapiset.h>
+	<threadpoollegacyapiset.h>
+	<utilapiset.h>
+	<wow64apiset.h>
+	<psdk_inc/intrin-impl.h>
+	<winerror.h>
+	<timezoneapi.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\apisetcconv.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\minwinbase.h
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\bemapiset.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\debugapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\errhandlingapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\fibersapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\fileapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\handleapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\heapapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\ioapiset.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\interlockedapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\jobapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\libloaderapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\memoryapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\namedpipeapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\namespaceapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\processenv.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\processthreadsapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\processtopologyapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\profileapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\realtimeapiset.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\securityappcontainer.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\securitybaseapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\synchapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\sysinfoapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\systemtopologyapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\threadpoolapiset.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\threadpoollegacyapiset.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\utilapiset.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\wow64apiset.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winerror.h
+	<fltwinerror.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\fltwinerror.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\timezoneapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\wingdi.h
+	<winapifamily.h>
+	<_mingw_unicode.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack2.h>
+	<poppack.h>
+	<pshpack2.h>
+	<poppack.h>
+	<pshpack4.h>
+	<poppack.h>
+	<pshpack4.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\pshpack1.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winuser.h
+	<winapifamily.h>
+	<_mingw_unicode.h>
+	<apisetcconv.h>
+	<_mingw.h>
+	<stdarg.h>
+	<guiddef.h>
+	<libloaderapi.h>
+	<pshpack2.h>
+	<poppack.h>
+	<tvout.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\tvout.h
+	<guiddef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winnls.h
+	<winapifamily.h>
+	<datetimeapi.h>
+	<libloaderapi.h>
+	<stringapiset.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\datetimeapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<minwinbase.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\stringapiset.h
+	<apiset.h>
+	<apisetcconv.h>
+	<minwindef.h>
+	<winnls.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\wincon.h
+	<_mingw_unicode.h>
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winreg.h
+	<_mingw_unicode.h>
+	<reason.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\reason.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winnetwk.h
+	<winapifamily.h>
+	<_mingw_unicode.h>
+	<wnnc.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\wnnc.h
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\virtdisk.h
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\cderr.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\dde.h
+	<windef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\ddeml.h
+	<_mingw_unicode.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\lzexpand.h
+	<_mingw_unicode.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\mmsystem.h
+	<_mingw_unicode.h>
+	<pshpack1.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\nb30.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\rpc.h
+	<_mingw.h>
+	<windows.h>
+	<basetsd.h>
+	<pshpack8.h>
+	<rpcdce.h>
+	<rpcnsi.h>
+	<rpcnterr.h>
+	<excpt.h>
+	<winerror.h>
+	<rpcasync.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\rpcdce.h
+	<_mingw_unicode.h>
+	<specstrings.h>
+	<guiddef.h>
+	<rpcdcep.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\rpcdcep.h
+	<_mingw_unicode.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\rpcnsi.h
+	<_mingw_unicode.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\rpcnterr.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\rpcasync.h
+	<_mingw_unicode.h>
+	<pshpack8.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\shellapi.h
+	<winapifamily.h>
+	<_mingw_unicode.h>
+	<specstrings.h>
+	<pshpack1.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winperf.h
+	<pshpack8.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winsock.h
+	<windows.h>
+	<_timeval.h>
+	<_bsd_types.h>
+	<inaddr.h>
+	<psdk_inc/_socket_types.h>
+	<psdk_inc/_fd_types.h>
+	<psdk_inc/_ip_types.h>
+	<psdk_inc/_ip_mreq1.h>
+	<psdk_inc/_wsadata.h>
+	<psdk_inc/_xmitfile.h>
+	<psdk_inc/_wsa_errnos.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\inaddr.h
+	<_bsd_types.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\psdk_inc\_socket_types.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\psdk_inc\_fd_types.h
+	<psdk_inc/_socket_types.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\psdk_inc\_ip_types.h
+	<_bsd_types.h>
+	<inaddr.h>
+	<_timeval.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\psdk_inc\_ip_mreq1.h
+	<inaddr.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\psdk_inc\_wsadata.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\psdk_inc\_xmitfile.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\psdk_inc\_wsa_errnos.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\wincrypt.h
+	<_mingw.h>
+	<_mingw_unicode.h>
+	<guiddef.h>
+	<winapifamily.h>
+	<apisetcconv.h>
+	<bcrypt.h>
+	<ncrypt.h>
+	<dpapi.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\bcrypt.h
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\ncrypt.h
+	<winapifamily.h>
+	<bcrypt.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\dpapi.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winefs.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winscard.h
+	<_mingw_unicode.h>
+	<wtypes.h>
+	<winioctl.h>
+	"winsmcrd.h"
+	"SCardErr.h"
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\wtypes.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<wtypesbase.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\rpcndr.h
+	<pshpack8.h>
+	<basetsd.h>
+	<rpcnsip.h>
+	<rpcsal.h>
+	<poppack.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\rpcnsip.h
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\rpcsal.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\ole2.h
+	<winapifamily.h>
+	<pshpack8.h>
+	<winerror.h>
+	<objbase.h>
+	<oleauto.h>
+	<oleidl.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\objbase.h
+	<winapifamily.h>
+	<rpc.h>
+	<rpcndr.h>
+	<pshpack8.h>
+	<combaseapi.h>
+	<objidl.h>
+	<urlmon.h>
+	<propidl.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\combaseapi.h
+	<apiset.h>
+	<apisetcconv.h>
+	<rpc.h>
+	<rpcndr.h>
+	<pshpack8.h>
+	<stdlib.h>
+	<wtypesbase.h>
+	<unknwnbase.h>
+	<objidlbase.h>
+	<guiddef.h>
+	<cguid.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\wtypesbase.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<basetsd.h>
+	<guiddef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\unknwnbase.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<wtypesbase.h>
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\objidlbase.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<unknwnbase.h>
+	<wtypesbase.h>
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\cguid.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\objidl.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<unknwn.h>
+	<wtypes.h>
+	<winapifamily.h>
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\unknwn.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<wtypes.h>
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\urlmon.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<objidl.h>
+	<oleidl.h>
+	<servprov.h>
+	<msxml.h>
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\oleidl.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<objidl.h>
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\servprov.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<objidl.h>
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\msxml.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<unknwn.h>
+	<objidl.h>
+	<oaidl.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\oaidl.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<objidl.h>
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\propidl.h
+	<rpc.h>
+	<rpcndr.h>
+	<windows.h>
+	<ole2.h>
+	<wtypes.h>
+	<objidl.h>
+	<oaidl.h>
+	<winapifamily.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\oleauto.h
+	<pshpack8.h>
+	<oaidl.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winioctl.h
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winsmcrd.h
+	<_mingw_unicode.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\scarderr.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winspool.h
+	<_mingw_unicode.h>
+	<prsht.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\prsht.h
+	<_mingw_unicode.h>
+	<pshpack8.h>
+	<pshpack4.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\ole.h
+	<winapifamily.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\commdlg.h
+	<winapifamily.h>
+	<_mingw_unicode.h>
+	<prsht.h>
+	<pshpack1.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\stralign.h
+	<sec_api/stralign_s.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\winsvc.h
+	<_mingw.h>
+	<_mingw_unicode.h>
+	<apisetcconv.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\mcx.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\imm.h
+	<_mingw_unicode.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\_mingw.h
+	"_mingw_mac.h"
+	"_mingw_secapi.h"
+	"_cygwin.h"
+	<vadefs.h>
+	"sdks/_mingw_directx.h"
+	"sdks/_mingw_ddk.h"
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\_mingw_mac.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\_mingw_secapi.h
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\_cygwin.h
+	<stddef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\stddef.h
+	<crtdefs.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\crtdefs.h
+	<_mingw.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\vadefs.h
+	<_mingw.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\sdks\_mingw_directx.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\sdks\_mingw_ddk.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\_mingw_unicode.h
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\excpt.h
+	<crtdefs.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\stdarg.h
+	<_mingw_stdarg.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\_mingw_stdarg.h
+	<vadefs.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\driverspecs.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\ctype.h
+	<crtdefs.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\intrin.h
+	<crtdefs.h>
+	<setjmp.h>
+	<stddef.h>
+	<psdk_inc/intrin-impl.h>
+	<stdlib.h>
+	<errno.h>
+	<malloc.h>
+	<x86intrin.h>
+	<mmintrin.h>
+	<mm3dnow.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	<pmmintrin.h>
+	<mm3dnow.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\setjmp.h
+	<crtdefs.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\stdlib.h
+	<crtdefs.h>
+	<limits.h>
+	<sec_api/stdlib_s.h>
+	<malloc.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\limits.h
+	<crtdefs.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\sec_api\stdlib_s.h
+	<stdlib.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\malloc.h
+	<crtdefs.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\errno.h
+	<crtdefs.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\string.h
+	<crtdefs.h>
+	<sec_api/string_s.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\sec_api\string_s.h
+	<string.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\_timeval.h
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\_bsd_types.h
+	<_mingw.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\sec_api\stralign_s.h
+	<stralign.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\windowsx.h
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\gl\gl.h
+	<windows.h>
+	<stddef.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\gl\glu.h
+	<GL/gl.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\scrnsave.h
+	<pshpack1.h>
+	<poppack.h>
+
+1526093414 f:\dev\projects\digitalwatch.scr\src\include\commctrl.h
+	<winapifamily.h>
+	<_mingw_unicode.h>
+	<prsht.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+	<pshpack1.h>
+	<poppack.h>
+
+1526093416 f:\dev\projects\digitalwatch.scr\src\include\math.h
+	<crtdefs.h>
 

@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="bloodigitalwatch" />
+		<Option title="digitalwatch" />
 		<Option platforms="Windows;" />
 		<Option execution_dir="F:/dev/projects/scrsvr_watch/src/" />
 		<Option pch_mode="2" />
@@ -10,7 +10,7 @@
 		<Build>
 			<Target title="Debug">
 				<Option platforms="Windows;" />
-				<Option output="bin/Debug/bloodigitalwatch.scr" prefix_auto="1" extension_auto="0" />
+				<Option output="bin/Debug/digitalwatch.w.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gnu_gcc_compiler_630" />
@@ -21,7 +21,7 @@
 			</Target>
 			<Target title="Release">
 				<Option platforms="Windows;" />
-				<Option output="bin/Release/bloodigitalwatch.scr" prefix_auto="1" extension_auto="0" />
+				<Option output="bin/Release/digitalwatch.w.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gnu_gcc_compiler_630" />
@@ -35,7 +35,7 @@
 			</Target>
 			<Target title="Debug[scr]">
 				<Option platforms="Windows;" />
-				<Option output="bin/Debug/bloodigitalwatch[scr].scr" prefix_auto="1" extension_auto="0" />
+				<Option output="bin/Debug/digitalwatch.s.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gnu_gcc_compiler_630" />
@@ -46,7 +46,7 @@
 			</Target>
 			<Target title="Release[scr]">
 				<Option platforms="Windows;" />
-				<Option output="bin/Release/bloodigitalwatch[scr].scr" prefix_auto="1" extension_auto="0" />
+				<Option output="bin/Release/digitalwatch.s.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gnu_gcc_compiler_630" />
@@ -60,7 +60,7 @@
 			</Target>
 			<Target title="Release[scr]DLG">
 				<Option platforms="Windows;" />
-				<Option output="bin/Release/bloodigitalwatch[scr].scr" prefix_auto="1" extension_auto="0" />
+				<Option output="bin/Release/digitalwatch.s.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gnu_gcc_compiler_630" />
@@ -75,12 +75,13 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-Wl,-rpath" />
+			<Add option="-Wl,-rpath,windows" />
 		</Compiler>
 		<ResourceCompiler>
 			<Add option="--def=main_win.def" />
 		</ResourceCompiler>
 		<Linker>
+			<Add library="scrnsavw" />
 			<Add library="scrnsave" />
 			<Add library="comdlg32" />
 			<Add library="comctl32" />
@@ -101,7 +102,6 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="main_win.def" />
-		<Unit filename="progdef.h" />
 		<Unit filename="resource.h" />
 		<Unit filename="resources.rc">
 			<Option compilerVar="WINDRES" />
