@@ -2,8 +2,9 @@
 # Digital Watch / Clock Screensaver for MS Windows OpenGL
 
 
-## Screenshot ver0.4
-![screensot1](screenshot_ver0.4.gif  "Screenshot ver0.4")
+## Screenshot ver0.5
+
+![screensot1](screenshot_ver0.5.gif  "Screenshot ver0.5")
 
 
 ## Settings: press Keyboard
