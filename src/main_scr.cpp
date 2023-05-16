@@ -166,6 +166,21 @@ void draw_clock(HDC *hDC)
     draw_symbol(dc, -7, -9, 1, 9,   dots_matrix);
     draw_symbol(dc, 7, -9, 1, 9,    dots_matrix);
 
+
+    if (st.wSecond % 2 == 0 || g_start_flag)
+    {
+        glColor3f(0.15f, 0.15f, 0.0f);
+        draw_symbol(start_time.wHour / 10, -19, 11, 4, 7,   m_deys_matrix);
+        draw_symbol(start_time.wHour % 10, -13, 11, 4, 7,   m_deys_matrix);
+        draw_symbol(start_time.wMinute / 10, -5, 11, 4, 7,  m_deys_matrix);
+        draw_symbol(start_time.wMinute % 10, 1, 11, 4, 7,   m_deys_matrix);
+        draw_symbol(start_time.wSecond / 10, 9, 11, 4, 7,       m_deys_matrix);
+        draw_symbol(start_time.wSecond % 10, 15, 11, 4, 7,      m_deys_matrix);
+        draw_symbol(1, -7, 10, 1, 9,   dots_matrix);
+        draw_symbol(1, 7, 10, 1, 9,    dots_matrix);
+
+    }
+
 }
 
 void Render(HDC *hDC)
@@ -249,6 +264,7 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
             setVertex();
 
             ScreenSaverInit(hDC);
+            GetLocalTime(&start_time);
 
             uTimer = (UINT)SetTimer(hwnd, 1, 1, NULL);
         }
@@ -299,7 +315,6 @@ LRESULT WINAPI ScreenSaverProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 
         case WM_KEYDOWN:
         {
-            //Screensaver_Init(hDC);
             switch (wParam) {
                 case VK_UP:     {y_offset++;keydown=TRUE;}break;
                 case VK_DOWN:   {y_offset--;keydown=TRUE;}break;
@@ -386,7 +401,7 @@ BOOL WINAPI ScreenSaverConfigureDialog(HWND hDlg, UINT message, WPARAM wParam, L
         switch (LOWORD(wParam))
         {
         case IDC_GOGITBTN:
-            ShellExecute(hDlg, "Open", GITHUBURL, (LPCTSTR)NULL, (LPCTSTR)NULL, SW_SHOW);
+            ShellExecute(hwnd, "Open", GITHUBURL, (LPCTSTR)NULL, (LPCTSTR)NULL, SW_SHOW);
             break;
         case IDOK:
             EndDialog(hDlg, LOWORD(wParam));

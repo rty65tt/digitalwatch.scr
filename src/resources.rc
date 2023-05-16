@@ -1,106 +1,8 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "version.h"
-#include "progdef.h"
 #include <windows.h>
 #include "resource.h"
-
-#define APSTUDIO_READONLY_SYMBOLS
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 2 resource.
-//
-//#include "winres.h"
-
-/////////////////////////////////////////////////////////////////////////////
-#undef APSTUDIO_READONLY_SYMBOLS
-
-/////////////////////////////////////////////////////////////////////////////
-// Ðóññêèé (Ðîññèÿ) resources
-
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
-LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
-
-#ifdef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// TEXTINCLUDE
-//
-
-1 TEXTINCLUDE
-BEGIN
-    "resource.h\0"
-END
-
-2 TEXTINCLUDE
-BEGIN
-    "#include ""winres.h""\r\n"
-    "\0"
-END
-
-3 TEXTINCLUDE
-BEGIN
-    "\r\n"
-    "\0"
-END
-
-#endif    // APSTUDIO_INVOKED
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Dialog
-//
-
-DLG_SCRNSAVECONFIGURE DIALOGEX 50, 50, 299, 157
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_STATICEDGE
-CAPTION "Options"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "Ok",           IDOK,           185,132,50,14
-    PUSHBUTTON      "Cancel",       IDCANCEL,       242,132,50,14
-    CTEXT           PROGNAME1,      IDC_STATIC,     185,28,104,11,0,WS_EX_STATICEDGE
-    CTEXT           "ver",          IDC_STATIC,     185,74,51,11,0,WS_EX_STATICEDGE
-    CTEXT           "0.0",          IDC_VERION,     242,74,51,11,SS_SUNKEN|SS_LEFT
-    CTEXT           "1970",         IDC_YEAR,       185,88,51,11,0,WS_EX_STATICEDGE
-    CTEXT           "open source",  IDC_STATIC,     185,104,51,11,SS_SUNKEN
-    PUSHBUTTON      "GITHUB",       IDC_GOGITBTN,   242,102,34,14,BS_FLAT
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO
-BEGIN
-    DLG_SCRNSAVECONFIGURE, DIALOG
-    BEGIN
-        RIGHTMARGIN, 292
-        BOTTOMMARGIN, 146
-    END
-END
-#endif    // APSTUDIO_INVOKED
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// AFX_DIALOG_LAYOUT
-//
-
-IDD_DIALOG1 AFX_DIALOG_LAYOUT
-BEGIN
-    0
-END
-
-DLG_SCRNSAVECONFIGURE AFX_DIALOG_LAYOUT
-BEGIN
-    0
-END
-
+#include "version.h"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -109,20 +11,11 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "icon.ico"
 
-#endif    // Ðóññêèé (Ðîññèÿ) resources
-/////////////////////////////////////////////////////////////////////////////
-
-
-
-#ifndef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 3 resource.
-//
-
-
-/////////////////////////////////////////////////////////////////////////////
-#endif    // not APSTUDIO_INVOKED
+#if MAINWIN
+IDI_ICON               ICON                    "icon.w.ico"
+#endif // MAINWIN
+#if MAINSCR
+IDI_ICON               ICON                    "icon.s.ico"
+#endif // MAINSCR
 

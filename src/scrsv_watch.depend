@@ -115,32 +115,30 @@
 
 1683891619 f:\dev\projects\bloodigitalwatch.scr\src\progdef.h
 
-1684077853 source:f:\dev\projects\digitalwatch.scr\src\main_win.cpp
+1684258836 source:f:\dev\projects\digitalwatch.scr\src\main_win.cpp
 	<windows.h>
 	<Windowsx.h>
-	<winuser.h>
 	<gl/gl.h>
 	<math.h>
-	"main.h"
+	<stdio.h>
+	"main_win.h"
 	"resource.h"
 	"version.h"
-	<iostream>
 
-1684072574 f:\dev\projects\digitalwatch.scr\src\main.h
+1684256326 f:\dev\projects\digitalwatch.scr\src\main.h
 
 1684002359 f:\dev\projects\digitalwatch.scr\src\progdef.h
 
-1683893658 f:\dev\projects\digitalwatch.scr\src\resource.h
+1684254057 f:\dev\projects\digitalwatch.scr\src\resource.h
 
-1684077853 f:\dev\projects\digitalwatch.scr\src\version.h
+1684258836 f:\dev\projects\digitalwatch.scr\src\version.h
 
-1683895533 source:f:\dev\projects\digitalwatch.scr\src\resources.rc
-	"version.h"
-	"progdef.h"
+1684254069 source:f:\dev\projects\digitalwatch.scr\src\resources.rc
 	<windows.h>
 	"resource.h"
+	"version.h"
 
-1684069479 source:f:\dev\projects\digitalwatch.scr\src\main_scr.cpp
+1684089472 source:f:\dev\projects\digitalwatch.scr\src\main_scr.cpp
 	<Windows.h>
 	<Windowsx.h>
 	<winuser.h>
@@ -1033,4 +1031,22 @@
 
 1526093416 f:\dev\projects\digitalwatch.scr\src\include\math.h
 	<crtdefs.h>
+
+1684147855 source:f:\dev\projects\digitalwatch.scr\src\main1win.cpp
+	<windows.h>
+	<Windowsx.h>
+	<winuser.h>
+	<gl/gl.h>
+	<gl/GLU.h>
+	<math.h>
+	<scrnsave.h>
+	<CommCtrl.h>
+	"CommDlg.h"
+	<stdio.h>
+	"main.h"
+	"resource.h"
+	"version.h"
+
+1684253910 f:\dev\projects\digitalwatch.scr\src\main_win.h
+	"main.h"
 

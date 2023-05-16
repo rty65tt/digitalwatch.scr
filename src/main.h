@@ -1,5 +1,4 @@
-#define GITHUBURL   "https://github.com/rty65tt/digitalwatch.scr"
-#define PROGNAME1   "digitalwatch.scr"
+#define GITHUBURL   L"https://github.com/rty65tt/digitalwatch.scr"
 
 //#define PI       3.14159265358979323846   // pi
 #define TIMER           1
@@ -9,16 +8,32 @@
 
 POINTFLOAT verticles[CIRCLE_EDGES];
 
-HINSTANCE    hMainInstance;
-
 static int g_start_flag = 40;
 int sleeptime = 160;
-float scale = 0.5f;
-BOOL circle = TRUE;
-BOOL circle_fg = TRUE;
-BOOL circle_bg = TRUE;
 
-static SYSTEMTIME st;
+BOOL circle_fg = FALSE;
+BOOL circle_bg = FALSE;
+BOOL circle_cl = FALSE;
+BOOL circle = circle_fg;
+
+
+GLubyte  def_bg_colors[] = {12, 12, 12};
+//GLubyte def_bg_colors[] = {24, 24, 24};
+GLubyte  def_fg_colors[] = {38, 38, 38};
+GLubyte  def_hh_colors[] = {76, 38, 0};
+GLubyte   def_mm_colors[] = {76, 38, 0};
+GLubyte  def_ss_colors[] = {58, 56, 5};
+GLubyte  def_ww_colors[] = {63, 50, 38};
+GLubyte  def_dd_colors[] = {38, 76, 0};
+
+GLubyte * colors = def_hh_colors;
+
+float scale = 0.5f;
+float s[4] = { 1.0f, 0.75f, 0.5f };
+int scl_bg  = 0;
+int scl_fg  = 0;
+
+static SYSTEMTIME st, start_time;
 static int p_second = 0;
 
 static int mouse_x_init = 0;
@@ -85,7 +100,6 @@ float rand_range(int range_min, int range_max)
     return r;
 }
 
-
 void setVertex()
 {
     float x, y;
@@ -117,8 +131,8 @@ void drawSquareFill()
 
 void TBall_Init(TBall *obj, float x1, float y1)
 {
-    obj->x = x1+space;
-    obj->y = y1+space;
+    obj->x = x1;
+    obj->y = y1;
     obj->r = step;
 }
 
@@ -134,3 +148,32 @@ void TBall_Draw(TBall obj)
     }
     glPopMatrix();
 }
+
+void LoadSaveSettings(BOOL save)
+{
+    HKEY key;
+    DWORD disposition;
+    DWORD type = REG_DWORD, size = sizeof(REG_DWORD);
+
+    if (RegCreateKeyEx(HKEY_CURRENT_USER, L"Software\\ScreenSavers\\digitalwatch", 0, NULL, 0, KEY_WRITE | KEY_READ, NULL, &key, &disposition) == ERROR_SUCCESS)
+    {
+        if (save)
+        {
+            RegSetValueEx(key, L"circle_cl", 0, type,    (PBYTE)&circle_cl, size);
+            RegSetValueEx(key, L"circle_fg", 0, type,    (PBYTE)&circle_fg, size);
+            RegSetValueEx(key, L"circle_bg", 0, type,    (PBYTE)&circle_bg, size);
+            RegSetValueEx(key, L"scl_fg", 0, type,       (PBYTE)&scl_fg, size);
+            RegSetValueEx(key, L"scl_bg", 0, type,       (PBYTE)&scl_bg, size);
+        }
+        else
+        {
+            RegQueryValueEx(key, L"circle_cl", 0, &type, (PBYTE)&circle_cl, &size);
+            RegQueryValueEx(key, L"circle_fg", 0, &type, (PBYTE)&circle_fg, &size);
+            RegQueryValueEx(key, L"circle_bg", 0, &type, (PBYTE)&circle_bg, &size);
+            RegQueryValueEx(key, L"scl_fg", 0, &type,    (PBYTE)&scl_fg, &size);
+            RegQueryValueEx(key, L"scl_bg", 0, &type,    (PBYTE)&scl_bg, &size);
+        }
+        RegCloseKey(key);
+    }
+}
+

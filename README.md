@@ -6,6 +6,21 @@
 ![screensot1](screenshot_ver0.4.gif  "Screenshot ver0.4")
 
 
+## Settings: press Keyboard
+
+F1 - open this page
+
+Inc - resize watch
+
+Del - change circles / square watch
+
+PgUP - resize background
+
+PgDown - change circles / square background
+
+End - change circles / square
+
+
 ## Build
 install [MinGW](https://sourceforge.net/projects/mingw/)
 
