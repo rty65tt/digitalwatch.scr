@@ -4,18 +4,14 @@
 #include <Windowsx.h>
 
 #include <gl/gl.h>
-//#include <gl/GLU.h>
+
 #include <math.h>
 
-//#include <CommCtrl.h>
-//#include "CommDlg.h"
 #include <stdio.h>
 
 #include "main_win.h"
 #include "resource.h"
 #include "version.h"
-////#include <iostream>
-////using namespace std;
 
 BOOL WINAPI ScreenSaverConfigureDialog(HWND, UINT, WPARAM, LPARAM);
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
@@ -79,7 +75,6 @@ void draw_clock(int mon_num) {
     circle = circle_cl;
     set_scale(scl_fg);
     // background font
-    //glColor3f(0.05f, 0.05f, 0.05f);
     colors = def_bg_colors;
     draw_symbol(8, -19, -8, 5, 9,   mon_num, digit_matrix); //hh
     draw_symbol(8, -13, -8, 5, 9,   mon_num, digit_matrix); //hh
@@ -90,6 +85,7 @@ void draw_clock(int mon_num) {
     draw_symbol(2, -7, -8, 1, 9,    mon_num, dots_matrix); //::
     draw_symbol(2, 7, -8, 1, 9,     mon_num, dots_matrix); //::
 
+    // foreground font
     colors = def_hh_colors;
     draw_symbol(st.wHour / 10, -19, -8, 5, 9,   mon_num, digit_matrix);
     draw_symbol(st.wHour % 10, -13, -8, 5, 9,   mon_num, digit_matrix);
@@ -106,7 +102,8 @@ void draw_clock(int mon_num) {
     if (st.wSecond % 2 == 1) { colors = def_hh_colors; }
     draw_symbol(st.wSecond / 10, 9, -8, 5, 9,   mon_num, digit_matrix);
     draw_symbol(st.wSecond % 10, 15, -8, 5, 9,  mon_num, digit_matrix);
-    //Dot blink
+
+    //dot blink
     int dc = st.wSecond % 2;
     draw_symbol(dc, -7, -8, 1, 9,   mon_num, dots_matrix);
     draw_symbol(dc, 7, -8, 1, 9,    mon_num, dots_matrix);
@@ -154,12 +151,6 @@ void render(int mon_num) {
     GetLocalTime(&st);
     draw_clock(mon_num);
 
-//    if(mntrs[mon_num].p_second != st.wSecond){
-//        //wglMakeCurrent(mntrs[mcnt].hDC, mntrs[mcnt].hRC);
-//        //wglSwapLayerBuffers(mntrs[mon_num].hDC, WGL_SWAP_MAIN_PLANE);
-//        mntrs[mon_num].p_second = st.wSecond;
-//    }
-    //wglSwapLayerBuffers(mntrs[mon_num].hDC, WGL_SWAP_MAIN_PLANE);
     g_start_flag = 0;
 
 }
@@ -181,12 +172,16 @@ void ScreenSaverInit(HDC* hDC, int mon_num) {
             TBall_Draw(ball);
         }
     }
-    //wglSwapLayerBuffers(*hDC, WGL_SWAP_MAIN_PLANE);
 }
 
 void reset() {
     mcnt = 0;
     EnumDisplayMonitors(NULL, NULL, MonEnumRandReset, 0);
+}
+
+void loop() {
+    mcnt = 0;
+    EnumDisplayMonitors(NULL, NULL, MonEnumProcLoop, 0);
 }
 
 void CreateWins() {
@@ -210,30 +205,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
     mntrs = mons;
     sleeptime = sleeptime / m_num;
 
-//    LPWSTR *szArgList;
-//    int argCount;
-//
-//     szArgList = CommandLineToArgvW(GetCommandLine(), &argCount);
-//     if (szArgList == NULL)
-//     {
-//         MessageBox(NULL, L"Unable to parse command line", L"Error", MB_OK);
-//         return 1;
-//     }
-//     int i  = 1;
-//
-//     wchar_t s[256];
-//     wchar_t b[256];
-//     wchar_t *a = szArgList[i];
-//
-//     _swprintf(s, L"%s", szArgList[i]);
-//     _swprintf(b, L"%s", L"S");
-//
-//     if(!a[1] == *b) {
-//         MessageBox(NULL, szArgList[i], L"Arglist contents", MB_OK);
-//         return 0;
-//     }
-//     LocalFree(szArgList);
-
     LoadSaveSettings(FALSE);
     CreateWins();
     reset();
@@ -252,19 +223,13 @@ int WINAPI WinMain(HINSTANCE hInstance,
             else
             {
                 TranslateMessage(&msg);
-
                 DispatchMessage(&msg);
             }
         }
         else
         {
             /* OpenGL animation code goes here */
-            GetLocalTime(&st);
-            mcnt = 0;
-            EnumDisplayMonitors(NULL, NULL, MonEnumProcLoop, 0);
-
-            //p_second = st.wSecond;
-            //Sleep(400);
+            loop();
         }
     }
 
@@ -301,7 +266,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_DESTROY:
             return 0;
 
-//#if !DEBUG
         case WM_MOUSEMOVE:
         {
             int x = GET_X_LPARAM(lParam);
@@ -328,11 +292,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case VK_SCROLL: break;
                 default: {PostQuitMessage(0); }
             }
-            //PostQuitMessage(0);
             LoadSaveSettings(TRUE);
         }
         break;
-//#endif
         default:
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }

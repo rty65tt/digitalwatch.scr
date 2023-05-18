@@ -12,10 +12,5 @@
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 
-#if MAINWIN
 IDI_ICON               ICON                    "icon.w.ico"
-#endif // MAINWIN
-#if MAINSCR
-IDI_ICON               ICON                    "icon.s.ico"
-#endif // MAINSCR
 

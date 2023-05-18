@@ -115,7 +115,7 @@
 
 1683891619 f:\dev\projects\bloodigitalwatch.scr\src\progdef.h
 
-1684258836 source:f:\dev\projects\digitalwatch.scr\src\main_win.cpp
+1684373960 source:f:\dev\projects\digitalwatch.scr\src\main_win.cpp
 	<windows.h>
 	<Windowsx.h>
 	<gl/gl.h>
@@ -131,9 +131,9 @@
 
 1684254057 f:\dev\projects\digitalwatch.scr\src\resource.h
 
-1684258836 f:\dev\projects\digitalwatch.scr\src\version.h
+1684373961 f:\dev\projects\digitalwatch.scr\src\version.h
 
-1684254069 source:f:\dev\projects\digitalwatch.scr\src\resources.rc
+1684372130 source:f:\dev\projects\digitalwatch.scr\src\resources.rc
 	<windows.h>
 	"resource.h"
 	"version.h"
