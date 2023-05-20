@@ -60,7 +60,7 @@ BOOL CALLBACK MonEnumProcInit(
         return 0;
 
     /* create main window */
-    mntrs[mcnt].hwnd = CreateWindowEx(NULL,
+    mntrs[mcnt].hwnd = CreateWindowEx(WS_EX_TOPMOST,
                           class_name,
                           class_name,
                           //WS_OVERLAPPEDWINDOW,

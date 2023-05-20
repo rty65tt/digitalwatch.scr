@@ -131,7 +131,7 @@
 
 1684254057 f:\dev\projects\digitalwatch.scr\src\resource.h
 
-1684373961 f:\dev\projects\digitalwatch.scr\src\version.h
+1684533842 f:\dev\projects\digitalwatch.scr\src\version.h
 
 1684372130 source:f:\dev\projects\digitalwatch.scr\src\resources.rc
 	<windows.h>
@@ -1047,6 +1047,6 @@
 	"resource.h"
 	"version.h"
 
-1684253910 f:\dev\projects\digitalwatch.scr\src\main_win.h
+1684447652 f:\dev\projects\digitalwatch.scr\src\main_win.h
 	"main.h"
 
