@@ -21,6 +21,7 @@ PgDown - change circles / square background
 
 End - change circles / square
 
+BACKSPACE - Reset to default
 
 ## Build
 

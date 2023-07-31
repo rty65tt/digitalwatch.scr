@@ -1,4 +1,4 @@
- #define UNICODE 1
+#define UNICODE 1
 /* Multi-Monitor Version */
 #include <windows.h>
 #include <Windowsx.h>
@@ -19,19 +19,23 @@ void EnableOpenGL(HWND hwnd, HDC*, HGLRC*);
 void DisableOpenGL(HWND, HDC, HGLRC);
 
 
-BOOL rnd_grey_color(int m, int r_max=RAND_MAX) {
-    if(!keydown && m != 8 && st.wSecond !=0) {
+BOOL rnd_grey_color(int m, int r_max=RAND_MAX)
+{
+    if(!keydown && m != 8 && st.wSecond !=0)
+    {
         int r = rand()%r_max;
-        if(r < 50) {
-           grey = 25 + r;
-           glColor3ub(grey, grey, grey);
-           return FALSE;
+        if(r < 50)
+        {
+            grey = 25 + r;
+            glColor3ub(grey, grey, grey);
+            return FALSE;
         }
     }
     return TRUE;
 }
 
-void draw_symbol(unsigned int m, int x, int y, int cel, int row, int mon_num, char *p_matrix) {
+void draw_symbol(unsigned int m, int x, int y, int cel, int row, int mon_num, char *p_matrix)
+{
     int bm_x = 0;
     int bm_y = 0;
     int counter;
@@ -48,13 +52,19 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, int mon_num, ch
         {
             if (p_bm[counter] != 48)
             {
-                if(rand()%1000<2) {break;}
+                if(rand()%1000<2)
+                {
+                    break;
+                }
                 float ix = (x + bm_x) * space;
                 float iy = (y + bm_y) * -space;
                 rnd_grey_color(m);
                 TBall_Init(&ball, ix, iy);
                 TBall_Draw(ball);
-                if(a) {glColor3ubv(colors);}
+                if(a)
+                {
+                    glColor3ubv(colors);
+                }
             }
             bm_x += 1;
             ++counter;
@@ -70,7 +80,8 @@ void draw_symbol(unsigned int m, int x, int y, int cel, int row, int mon_num, ch
     glColor3ubv(colors);
 }
 
-void draw_clock(int mon_num) {
+void draw_clock(int mon_num)
+{
 
     circle = circle_cl;
     set_scale(scl_fg);
@@ -92,14 +103,17 @@ void draw_clock(int mon_num) {
     draw_symbol(st.wMinute / 10, -5, -8, 5, 9,  mon_num, digit_matrix);
     draw_symbol(st.wMinute % 10, 1, -8, 5, 9,   mon_num, digit_matrix);
 
-        // Day Of Week / Month Day
-        colors = def_ww_colors;
-        draw_symbol(st.wDayOfWeek, -13, 3, 7, 5,    mon_num, w_deys_matrix);
-        draw_symbol(st.wDay / 10, -4, 2, 4, 7,      mon_num, m_deys_matrix);
-        draw_symbol(st.wDay % 10, 2, 2, 4, 7,       mon_num, m_deys_matrix);
+    // Day Of Week / Month Day
+    colors = def_ww_colors;
+    draw_symbol(st.wDayOfWeek, -13, 3, 7, 5,    mon_num, w_deys_matrix);
+    draw_symbol(st.wDay / 10, -4, 2, 4, 7,      mon_num, m_deys_matrix);
+    draw_symbol(st.wDay % 10, 2, 2, 4, 7,       mon_num, m_deys_matrix);
 
     // Seconds
-    if (st.wSecond % 2 == 1) { colors = def_hh_colors; }
+    if (st.wSecond % 2 == 1)
+    {
+        colors = def_hh_colors;
+    }
     draw_symbol(st.wSecond / 10, 9, -8, 5, 9,   mon_num, digit_matrix);
     draw_symbol(st.wSecond % 10, 15, -8, 5, 9,  mon_num, digit_matrix);
 
@@ -110,14 +124,16 @@ void draw_clock(int mon_num) {
     set_scale(scl_bg);
 }
 
-void set_scale(int sn) {
+void set_scale(int sn)
+{
     float scale = s[sn];
     glLoadIdentity();
     glOrtho(-XYSCALE*scale, XYSCALE*scale, -XYSCALE*scale, XYSCALE*scale, -1, 1);
     glScalef( 1 / mntrs[mcnt].koef, 1, 1);
 }
 
-void render(int mon_num) {
+void render(int mon_num)
+{
 
     circle = circle_fg;
 
@@ -126,18 +142,22 @@ void render(int mon_num) {
     // background grey circles
     if(!c_count)
     {
-        for (int i=0; i<32; i++){
-        float ix = rand_range(-mntrs[mon_num].cx, mntrs[mon_num].cx) * space;
-        float iy = rand_range(-cy, cy) * space;
-        GLubyte grey = rand()%15;
-        glColor3ub(grey, grey, grey);
-        TBall_Init(&ball, ix, iy);
-        TBall_Draw(ball);
+        for (int i=0; i<32; i++)
+        {
+            float ix = rand_range(-mntrs[mon_num].cx, mntrs[mon_num].cx) * space;
+            float iy = rand_range(-cy, cy) * space;
+            GLubyte grey = rand()%15;
+            glColor3ub(grey, grey, grey);
+            TBall_Init(&ball, ix, iy);
+            TBall_Draw(ball);
         }
         Sleep(sleeptime);
-    } else {
+    }
+    else
+    {
         // color circles
-        for (int i=0; i<c_count; i++){
+        for (int i=0; i<c_count; i++)
+        {
             GLubyte rc = rand()%25;
             glColor3ub(rc, rc, rc);
             float ix = rand_range(-mntrs[mon_num].cx, mntrs[mon_num].cx) * space;
@@ -155,7 +175,8 @@ void render(int mon_num) {
 
 }
 
-void ScreenSaverInit(HDC* hDC, int mon_num) {
+void ScreenSaverInit(HDC* hDC, int mon_num)
+{
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //glDisable(GL_DEPTH_TEST);
@@ -174,17 +195,20 @@ void ScreenSaverInit(HDC* hDC, int mon_num) {
     }
 }
 
-void reset() {
+void reset()
+{
     mcnt = 0;
     EnumDisplayMonitors(NULL, NULL, MonEnumRandReset, 0);
 }
 
-void loop() {
+void loop()
+{
     mcnt = 0;
     EnumDisplayMonitors(NULL, NULL, MonEnumProcLoop, 0);
 }
 
-void CreateWins() {
+void CreateWins()
+{
     mcnt = 0;
     EnumDisplayMonitors(NULL, NULL, MonEnumProcInit, 0);
 }
@@ -246,63 +270,109 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     switch (uMsg)
     {
-        case WM_TIMER:
+    case WM_TIMER:
+    {
+        // Handle timer
+        reset();
+    }
+    case WM_CREATE:
+    {
+        ShowCursor(FALSE);
+        setVertex();
+        //uTimer = (UINT)SetTimer(hwnd, 1, 65000, NULL);
+    }
+    break;
+
+    case WM_CLOSE:
+        PostQuitMessage(0);
+        break;
+
+    case WM_DESTROY:
+        return 0;
+
+    case WM_MOUSEMOVE:
+    {
+        int x = GET_X_LPARAM(lParam);
+        if (!mouse_x_init)
         {
-            // Handle timer
+            mouse_x_init = x;
+        }
+        if (mouse_x_init != x)
+        {
+            PostQuitMessage(0);
+        }
+    }
+    break;
+    case WM_KEYDOWN:
+    {
+        switch (wParam)
+        {
+        case VK_INSERT:
+        {
+            scl_fg = ++scl_fg < 3 ? scl_fg : 0;
             reset();
         }
-        case WM_CREATE:
+        break;
+        case VK_DELETE:
         {
-            ShowCursor(FALSE);
-            setVertex();
-            //uTimer = (UINT)SetTimer(hwnd, 1, 65000, NULL);
+            circle_cl = circle_cl ? FALSE : TRUE;
+            reset();
         }
         break;
-
-        case WM_CLOSE:
+        case VK_HOME:
+        {} break;
+        case VK_END:
+        {
+            circle_fg = circle_fg ? FALSE : TRUE;
+        }
+        break;
+        case VK_PRIOR:
+        {
+            scl_bg = ++scl_bg < 3 ? scl_bg : 0;
+            reset();
+        }
+        break;
+        case VK_NEXT:
+        {
+            circle_bg = circle_bg ? FALSE : TRUE;
+            reset();
+        }
+        break;
+        case VK_BACK:
+        {
+            scl_fg      =   0;
+            scl_bg      =    0;
+            circle_cl   =   FALSE;
+            circle_fg   =   FALSE;
+            circle_bg   =   FALSE;
+            reset();
+        }
+        break;
+        case VK_F1:
+        {
+            ShellExecute(hwnd, L"Open", GITHUBURL, (LPCTSTR)NULL, (LPCTSTR)NULL, SW_SHOW);
             PostQuitMessage(0);
+        }
+        break;
+        case VK_SCROLL:
             break;
-
-        case WM_DESTROY:
-            return 0;
-
-        case WM_MOUSEMOVE:
-        {
-            int x = GET_X_LPARAM(lParam);
-            if (!mouse_x_init)
-            {
-                mouse_x_init = x;
-            }
-            if (mouse_x_init != x)
-            {
-                PostQuitMessage(0);
-            }
-        }
-        break;
-        case WM_KEYDOWN:
-        {
-            switch (wParam) {
-                case VK_INSERT: {scl_fg = ++scl_fg < 3 ? scl_fg : 0; reset(); } break;
-                case VK_DELETE: {circle_cl = circle_cl ? FALSE : TRUE; reset(); } break;
-                case VK_HOME:   {} break;
-                case VK_END:    {circle_fg = circle_fg ? FALSE : TRUE; } break;
-                case VK_PRIOR:  { scl_bg = ++scl_bg < 3 ? scl_bg : 0; reset(); } break;
-                case VK_NEXT:   { circle_bg = circle_bg ? FALSE : TRUE; reset(); } break;
-                case VK_F1: {ShellExecute(hwnd, L"Open", GITHUBURL, (LPCTSTR)NULL, (LPCTSTR)NULL, SW_SHOW);} break;
-                case VK_SCROLL: break;
-                default: {PostQuitMessage(0); }
-            }
-            LoadSaveSettings(TRUE);
-        }
-        break;
         default:
-            return DefWindowProc(hwnd, uMsg, wParam, lParam);
+        {
+            PostQuitMessage(0);
+        }
+        }
+        LoadSaveSettings(TRUE);
+    }
+    break;
+    default:
+        return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
 
     return 0;
 }
 
-void EnableOpenGL(HWND hwnd, HDC* hDC, HGLRC* hRC) {
+void EnableOpenGL(HWND hwnd, HDC* hDC, HGLRC* hRC)
+{
 
     PIXELFORMATDESCRIPTOR pfd;
 

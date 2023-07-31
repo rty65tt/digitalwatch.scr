@@ -6,14 +6,34 @@
 		<Option platforms="Windows;" />
 		<Option execution_dir="F:/dev/projects/scrsvr_watch/src/" />
 		<Option pch_mode="2" />
-		<Option compiler="gcc" />
+		<Option compiler="gnu_gcc_compiler_msys64_ucrt64" />
 		<Build>
+			<Target title="Release">
+				<Option platforms="Windows;" />
+				<Option output="bin/Release/digitalwatch.mw.scr" prefix_auto="1" extension_auto="0" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gnu_gcc_compiler_msys64_ucrt64" />
+				<Option parameters="/C" />
+				<Option projectCompilerOptionsRelation="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wl,-rpath,--subsystem,windows" />
+					<Add option="-DMAINWIN=1" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add option="-D MAINWIN=1" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
 			<Target title="Debug">
 				<Option platforms="Windows;" />
 				<Option output="bin/Debug/digitalwatch.mw.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
-				<Option compiler="gcc" />
+				<Option compiler="gnu_gcc_compiler_msys64_ucrt64" />
 				<Option parameters="/C" />
 				<Option projectCompilerOptionsRelation="1" />
 				<Option projectLinkerOptionsRelation="1" />
@@ -35,26 +55,6 @@
 					<Add library="gdi32" />
 					<Add library="user32" />
 					<Add library="kernel32" />
-				</Linker>
-			</Target>
-			<Target title="Release">
-				<Option platforms="Windows;" />
-				<Option output="bin/Release/digitalwatch.mw.scr" prefix_auto="1" extension_auto="0" />
-				<Option object_output="obj/Release/" />
-				<Option type="0" />
-				<Option compiler="gcc" />
-				<Option parameters="/C" />
-				<Option projectCompilerOptionsRelation="1" />
-				<Compiler>
-					<Add option="-O2" />
-					<Add option="-Wl,-rpath,--subsystem,windows" />
-					<Add option="-DMAINWIN=1" />
-				</Compiler>
-				<ResourceCompiler>
-					<Add option="-D MAINWIN=1" />
-				</ResourceCompiler>
-				<Linker>
-					<Add option="-s" />
 				</Linker>
 			</Target>
 		</Build>

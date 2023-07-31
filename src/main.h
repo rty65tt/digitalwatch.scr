@@ -141,9 +141,12 @@ void TBall_Draw(TBall obj)
     glPushMatrix();
     glTranslatef(obj.x, obj.y, 0);
     glScalef(obj.r, obj.r, 1);
-    if (circle) {
+    if (circle)
+    {
         drawCircleFill(CIRCLE_EDGES);
-    } else {
+    }
+    else
+    {
         drawSquareFill();
     }
     glPopMatrix();

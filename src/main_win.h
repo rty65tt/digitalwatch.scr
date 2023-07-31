@@ -14,10 +14,10 @@ TBall ball;
 
 
 BOOL CALLBACK MonEnumProcInit(
-  HMONITOR hMonitor,	// handle to display monitor
-  HDC hdcMonitor,   	// handle to monitor DC
-  LPRECT lprcMonitor,   // monitor intersection rectangle
-  LPARAM dwData     	// data
+    HMONITOR hMonitor,	// handle to display monitor
+    HDC hdcMonitor,   	// handle to monitor DC
+    LPRECT lprcMonitor,   // monitor intersection rectangle
+    LPARAM dwData     	// data
 )
 {
     static MONITORINFO mi;
@@ -61,6 +61,7 @@ BOOL CALLBACK MonEnumProcInit(
 
     /* create main window */
     mntrs[mcnt].hwnd = CreateWindowEx(WS_EX_TOPMOST,
+<<<<<<< HEAD
                           class_name,
                           class_name,
                           //WS_OVERLAPPEDWINDOW,
@@ -73,6 +74,20 @@ BOOL CALLBACK MonEnumProcInit(
                           NULL,
                           hMainInstance,
                           NULL);
+=======
+                                      class_name,
+                                      class_name,
+                                      //WS_OVERLAPPEDWINDOW,
+                                      WS_POPUP | WS_VISIBLE,
+                                      mi.rcMonitor.left,    //CW_USEDEFAULT,
+                                      0,                    //CW_USEDEFAULT,
+                                      width,
+                                      height,
+                                      NULL,
+                                      NULL,
+                                      hMainInstance,
+                                      NULL);
+>>>>>>> 3a06434 (add shortcut for reset to defafault settings)
 
     ShowWindow(mntrs[mcnt].hwnd, SW_SHOW);
 //    SetWindowPos(mntrs[mcnt].hwnd, HWND_TOPMOST, 0, 0, width, height, SWP_SHOWWINDOW);
@@ -86,10 +101,10 @@ BOOL CALLBACK MonEnumProcInit(
 }
 
 BOOL CALLBACK MonEnumRandReset(
-  HMONITOR hMonitor,	// handle to display monitor
-  HDC hdcMonitor,   	// handle to monitor DC
-  LPRECT lprcMonitor,   // monitor intersection rectangle
-  LPARAM dwData     	// data
+    HMONITOR hMonitor,	// handle to display monitor
+    HDC hdcMonitor,   	// handle to monitor DC
+    LPRECT lprcMonitor,   // monitor intersection rectangle
+    LPARAM dwData     	// data
 )
 {
     wglMakeCurrent(mntrs[mcnt].hDC, mntrs[mcnt].hRC);
@@ -103,10 +118,10 @@ BOOL CALLBACK MonEnumRandReset(
 }
 
 BOOL CALLBACK MonEnumProcLoop(
-  HMONITOR hMonitor,	// handle to display monitor
-  HDC hdcMonitor,   	// handle to monitor DC
-  LPRECT lprcMonitor,   // monitor intersection rectangle
-  LPARAM dwData     	// data
+    HMONITOR hMonitor,	// handle to display monitor
+    HDC hdcMonitor,   	// handle to monitor DC
+    LPRECT lprcMonitor,   // monitor intersection rectangle
+    LPARAM dwData     	// data
 )
 {
     wglMakeCurrent(mntrs[mcnt].hDC, mntrs[mcnt].hRC);
@@ -119,10 +134,10 @@ BOOL CALLBACK MonEnumProcLoop(
 }
 
 BOOL CALLBACK MonEnumOpenglDisable(
-  HMONITOR hMonitor,	// handle to display monitor
-  HDC hdcMonitor,   	// handle to monitor DC
-  LPRECT lprcMonitor,   // monitor intersection rectangle
-  LPARAM dwData     	// data
+    HMONITOR hMonitor,	// handle to display monitor
+    HDC hdcMonitor,   	// handle to monitor DC
+    LPRECT lprcMonitor,   // monitor intersection rectangle
+    LPARAM dwData     	// data
 )
 {
     HWND hwnd = mntrs[mcnt].hwnd;
