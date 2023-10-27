@@ -4,7 +4,7 @@
 
 ## Screenshot ver0.5
 
-![screensot1](screenshot_ver0.5.gif  "Screenshot ver0.5")
+![screenshot1](screenshot_ver0.5.gif  "Screenshot ver0.5")
 
 
 ## Settings: press Keyboard
