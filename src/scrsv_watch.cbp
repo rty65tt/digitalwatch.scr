@@ -6,34 +6,30 @@
 		<Option platforms="Windows;" />
 		<Option execution_dir="F:/dev/projects/scrsvr_watch/src/" />
 		<Option pch_mode="2" />
-		<Option compiler="gnu_gcc_compiler_msys64_ucrt64" />
+		<Option compiler="gcc" />
 		<Build>
 			<Target title="Release">
 				<Option platforms="Windows;" />
 				<Option output="bin/Release/digitalwatch.mw.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
-				<Option compiler="gnu_gcc_compiler_msys64_ucrt64" />
+				<Option compiler="gcc" />
 				<Option parameters="/C" />
 				<Option projectCompilerOptionsRelation="1" />
 				<Compiler>
-					<Add option="-O2" />
 					<Add option="-Wl,-rpath,--subsystem,windows" />
 					<Add option="-DMAINWIN=1" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add option="-D MAINWIN=1" />
 				</ResourceCompiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
 			</Target>
 			<Target title="Debug">
 				<Option platforms="Windows;" />
 				<Option output="bin/Debug/digitalwatch.mw.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
-				<Option compiler="gnu_gcc_compiler_msys64_ucrt64" />
+				<Option compiler="gcc" />
 				<Option parameters="/C" />
 				<Option projectCompilerOptionsRelation="1" />
 				<Option projectLinkerOptionsRelation="1" />
@@ -59,6 +55,9 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-fomit-frame-pointer" />
+			<Add option="-fexpensive-optimizations" />
+			<Add option="-Os" />
 			<Add option="-Wall" />
 			<Add option="-Wl,-rpath,--subsystem,windows  -municode" />
 		</Compiler>
@@ -66,6 +65,10 @@
 			<Add option="--def=main.def" />
 		</ResourceCompiler>
 		<Linker>
+			<Add option="-s" />
+			<Add option="-static-libstdc++" />
+			<Add option="-static-libgcc" />
+			<Add option="-static" />
 			<Add option="-static-libgcc -static-libstdc++" />
 			<Add library="comdlg32" />
 			<Add library="comctl32" />
@@ -92,7 +95,6 @@
 			<Option compiler="gnu_gcc_compiler_630" use="0" buildCommand="\n" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="version.h" />
 		<Extensions>
 			<AutoVersioning>
 				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />

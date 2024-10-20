@@ -61,7 +61,6 @@ BOOL CALLBACK MonEnumProcInit(
 
     /* create main window */
     mntrs[mcnt].hwnd = CreateWindowEx(WS_EX_TOPMOST,
-<<<<<<< HEAD
                           class_name,
                           class_name,
                           //WS_OVERLAPPEDWINDOW,
@@ -74,20 +73,6 @@ BOOL CALLBACK MonEnumProcInit(
                           NULL,
                           hMainInstance,
                           NULL);
-=======
-                                      class_name,
-                                      class_name,
-                                      //WS_OVERLAPPEDWINDOW,
-                                      WS_POPUP | WS_VISIBLE,
-                                      mi.rcMonitor.left,    //CW_USEDEFAULT,
-                                      0,                    //CW_USEDEFAULT,
-                                      width,
-                                      height,
-                                      NULL,
-                                      NULL,
-                                      hMainInstance,
-                                      NULL);
->>>>>>> 3a06434 (add shortcut for reset to defafault settings)
 
     ShowWindow(mntrs[mcnt].hwnd, SW_SHOW);
 //    SetWindowPos(mntrs[mcnt].hwnd, HWND_TOPMOST, 0, 0, width, height, SWP_SHOWWINDOW);

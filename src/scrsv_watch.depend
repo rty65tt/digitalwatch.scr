@@ -115,7 +115,7 @@
 
 1683891619 f:\dev\projects\bloodigitalwatch.scr\src\progdef.h
 
-1684632320 source:f:\dev\projects\digitalwatch.scr\src\main_win.cpp
+1690820879 source:f:\dev\projects\digitalwatch.scr\src\main_win.cpp
 	<windows.h>
 	<Windowsx.h>
 	<gl/gl.h>
@@ -125,17 +125,18 @@
 	"resource.h"
 	"version.h"
 
-1684632413 f:\dev\projects\digitalwatch.scr\src\main.h
+1690820879 f:\dev\projects\digitalwatch.scr\src\main.h
 
 1684002359 f:\dev\projects\digitalwatch.scr\src\progdef.h
 
 1684254057 f:\dev\projects\digitalwatch.scr\src\resource.h
 
-<<<<<<< HEAD
-1684533842 f:\dev\projects\digitalwatch.scr\src\version.h
-=======
-1690819322 f:\dev\projects\digitalwatch.scr\src\version.h
->>>>>>> 3a06434 (add shortcut for reset to defafault settings)
+1684147855 D
+
+1729468384 f:\dev\projects\digitalwatch.scr\src\version.h
+
+1685818301 6434 (add shortcut for reset to defafault settings)
+	"main.h"
 
 1684372130 source:f:\dev\projects\digitalwatch.scr\src\resources.rc
 	<windows.h>
@@ -1051,10 +1052,6 @@
 	"resource.h"
 	"version.h"
 
-<<<<<<< HEAD
-1684447652 f:\dev\projects\digitalwatch.scr\src\main_win.h
-=======
-1685818301 f:\dev\projects\digitalwatch.scr\src\main_win.h
->>>>>>> 3a06434 (add shortcut for reset to defafault settings)
+1729467524 f:\dev\projects\digitalwatch.scr\src\main_win.h
 	"main.h"
 
